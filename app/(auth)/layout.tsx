@@ -37,11 +37,16 @@ export default function AuthLayout({
           <span className="text-blue-500 dark:text-slate-700 ml-2">Store.</span>
         </Link>
         {children}
-        <div className="text-sm text-center text-balance">
+        <div className="text-[12px] text-center text-balance">
           By clicking continue you agree to our{" "}
-          <span className="underline dark:text-blue-500 cursor-pointer">Term of service</span>{" "}
+          <span className="underline dark:text-blue-500 cursor-pointer">
+            Term of service
+          </span>{" "}
           and{" "}
-          <span className="underline dark:text-blue-500 cursor-pointer">Privacy policy</span>.
+          <span className="underline dark:text-blue-500 cursor-pointer">
+            Privacy policy
+          </span>
+          .
         </div>
       </div>
     </div>
