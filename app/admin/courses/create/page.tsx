@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CategoryCourses, CourseLevel, CourseSchemasType, courseSchemas, courseStatus } from "@/lib/zodShema";
-import { useForm } from "react-hook-form";
+import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { ArrowLeft, PlusCircle, SparkleIcon } from "lucide-react";
@@ -20,12 +20,16 @@ import slugify from "slugify";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { SelectValue } from "@radix-ui/react-select";
+import RichTextEditor from "@/components/rich-text-editor/Editor";
+import { Uploader } from "@/components/file-uploader/Uploader";
 
 
 export default function CreateCoursePage() {
   //1 form shemas
   const form = useForm<CourseSchemasType>({
-    resolver: zodResolver(courseSchemas),
+    resolver: zodResolver(
+      courseSchemas
+    ) as unknown as Resolver<CourseSchemasType>,
     defaultValues: {
       title: "",
       description: "",
@@ -47,6 +51,8 @@ export default function CreateCoursePage() {
 
   return (
     <>
+      {" "}
+      <div></div>
       <div className="flex justify-between">
         <Link
           href={"/admin/courses"}
@@ -138,11 +144,7 @@ export default function CreateCoursePage() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea
-                        className="min-h-[120px]"
-                        placeholder="Description your course...."
-                        {...field}
-                      />
+                      <RichTextEditor field={field} />
                     </FormControl>
                     <FormMessage className="dark:text-white" />
                   </FormItem>
@@ -157,7 +159,7 @@ export default function CreateCoursePage() {
                   <FormItem>
                     <FormLabel>Thumbnail Image</FormLabel>
                     <FormControl>
-                      <Input placeholder="Thumbnail url....." {...field} />
+                      <Uploader />
                     </FormControl>
                     <FormMessage className="dark:text-white" />
                   </FormItem>

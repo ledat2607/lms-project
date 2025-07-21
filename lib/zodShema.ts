@@ -28,12 +28,15 @@
 
     fileKey: z.string().min(3, { message: "File is required" }),
 
-    price: z.coerce.number().min(1, { message: "Price is required" }),
-
+    price: z.coerce
+      .number()
+      .min(1, { message: "Price is required" })
+      .transform((n) => n as number),
     duration: z.coerce
       .number()
       .min(1, { message: "Duration must be at least 1 hour" })
-      .max(100, { message: "Duration must be at most 100 hours" }),
+      .max(100, { message: "Duration must be at most 100 hours" })
+      .transform((n) => n as number),
 
     level: z.enum(CourseLevel, { message: "Level is required" }),
 
