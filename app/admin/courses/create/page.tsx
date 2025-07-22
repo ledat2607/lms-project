@@ -1,6 +1,5 @@
 "use client";
 
-
 import {
   Card,
   CardContent,
@@ -8,23 +7,49 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CategoryCourses, CourseLevel, CourseSchemasType, courseSchemas, courseStatus } from "@/lib/zodShema";
+import {
+  CategoryCourses,
+  CourseLevel,
+  CourseSchemasType,
+  courseSchemas,
+  courseStatus,
+} from "@/lib/zodShema";
 import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { ArrowLeft, PlusCircle, SparkleIcon } from "lucide-react";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { ArrowLeft, Loader2, PlusCircle, SparkleIcon } from "lucide-react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import slugify from "slugify";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 import { SelectValue } from "@radix-ui/react-select";
 import RichTextEditor from "@/components/rich-text-editor/Editor";
 import { Uploader } from "@/components/file-uploader/Uploader";
-
+import { useTransition } from "react";
+import { tryCatch } from "@/hooks/try-catch";
+import { CreateCourse } from "./action";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function CreateCoursePage() {
+  const [isPending, startTransaction] = useTransition();
+
+  const router = useRouter();
+
   //1 form shemas
   const form = useForm<CourseSchemasType>({
     resolver: zodResolver(
@@ -35,7 +60,7 @@ export default function CreateCoursePage() {
       description: "",
       fileKey: "",
       price: 1,
-      duration: 0,
+      duration: 1,
       level: "Beginner",
       category: "Healthy & Fitness",
       smallDescription: "",
@@ -46,6 +71,21 @@ export default function CreateCoursePage() {
 
   //2 function Submit
   function onSubmit(values: CourseSchemasType) {
+    startTransaction(async () => {
+      const { data: result, error } = await tryCatch(CreateCourse(values));
+
+      if (error) {
+        toast.error("An unexpected error occured. Please try again later!");
+        return;
+      }
+      if (result.status === "success") {
+        toast.success(result.message);
+        form.reset();
+        router.push("/admin/courses");
+      } else if (result.status === "error") {
+        toast.error(result.message);
+      }
+    });
     console.log(values);
   }
 
@@ -159,7 +199,7 @@ export default function CreateCoursePage() {
                   <FormItem>
                     <FormLabel>Thumbnail Image</FormLabel>
                     <FormControl>
-                      <Uploader />
+                      <Uploader onChange={field.onChange} value={field.value} />
                     </FormControl>
                     <FormMessage className="dark:text-white" />
                   </FormItem>
@@ -291,8 +331,17 @@ export default function CreateCoursePage() {
                   </FormItem>
                 )}
               />
-              <Button>
-                Create Course <PlusCircle className="ml-1" size={4} />
+              <Button type="submit" disabled={isPending}>
+                {isPending ? (
+                  <>
+                    Creating...
+                    <Loader2 className="animate-spin" />
+                  </>
+                ) : (
+                  <>
+                    Create Course <PlusCircle className="ml-1" size={4} />
+                  </>
+                )}
               </Button>
             </form>
           </Form>

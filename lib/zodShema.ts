@@ -23,8 +23,7 @@
 
     description: z
       .string()
-      .min(3, { message: "Description must be at least 3 characters" })
-      .max(100, { message: "Description must be at most 100 characters" }),
+      .min(3, { message: "Description must be at least 3 characters" }),
 
     fileKey: z.string().min(3, { message: "File is required" }),
 

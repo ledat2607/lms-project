@@ -3,6 +3,7 @@ import { Tooltip, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Toggle } from "../ui/toggle";
 import {
   AlignCenter,
+  AlignJustify,
   AlignLeft,
   AlignRight,
   Bold,
@@ -297,6 +298,30 @@ export function MenuBar({ editor }: iAppProps) {
             </TooltipTrigger>
             <TooltipContent className="bg-primary p-2 text-white italic rounded-2xl">
               Align Right
+            </TooltipContent>
+          </Tooltip>
+
+           <Tooltip>
+            <TooltipTrigger
+              asChild
+              className="border-2 border-primary dark:border-white"
+            >
+              <Toggle
+                size={"sm"}
+                pressed={editor.isActive({ textAlign: "justify" })}
+                onPressedChange={() =>
+                  editor.chain().focus().setTextAlign("justify").run()
+                }
+                className={cn(
+                  editor.isActive({ textAlign: "justify" }) &&
+                    "bg-muted text-foreground"
+                )}
+              >
+                <AlignJustify />
+              </Toggle>
+            </TooltipTrigger>
+            <TooltipContent className="bg-primary p-2 text-white italic rounded-2xl">
+              Align Justify
             </TooltipContent>
           </Tooltip>
         </div>
