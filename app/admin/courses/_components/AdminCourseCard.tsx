@@ -1,0 +1,75 @@
+import { AdminCourseType } from "@/app/data/admin/get-admin-course";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useConstrucUrl } from "@/hooks/use-construct";
+import { ArrowRight, EyeIcon, MoreVertical, Pencil, School, TimerIcon, Trash2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+interface iAdminCourseTypeProps {
+    data: AdminCourseType
+}
+
+export function AdminCourseCard({ data }: iAdminCourseTypeProps) {
+    return (
+        <Card className="group relative py-0 gap-0">
+            {/*absolute dropdown */}
+            <div className="absolute top-2 right-2 z-10">
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant={'secondary'} size={'icon'}>
+                            <MoreVertical className="size-4" />
+
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48" >
+                        <DropdownMenuItem asChild>
+                            <Link href={`/admin/courses/${data.id}/edit`}>
+                                <Pencil className="size-4 mr-2" />
+                                Edit Course
+                            </Link>
+                        </DropdownMenuItem>
+                         <DropdownMenuItem asChild>
+                            <Link href={`/courses/${data.slug}`}>
+                                <EyeIcon className="size-4 mr-2" />
+                                Preview
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild className="bg-primary text-white">
+                            <Link href={`/courses/${data.slug}`}>
+                                <Trash2 className="size-4 mr-2 text-white" />
+                                Delete Course
+                            </Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
+
+
+
+            <Image src={useConstrucUrl(data.fileKey)} alt="thumbnail" width={600} height={800} className="w-full rounded-t-lg aspect-video h-full object-cover" />
+
+            <CardContent className="p-3">
+                <Link href={`/admin/courses/${data.id}/edit`} className="font-medium text-lg line-clamp-2 hover:underline group-hover:text-primary transition-colors">
+                    {data.title}
+                </Link>
+                <p className="line-clamp-2 text-sm text-muted-foreground leading-tight mt-2">{data.smallDescription}</p>
+                <div className="mt-4 flex items-center gap-x-5">
+                    <div className="flex items-center gap-2">
+                        <TimerIcon className="size-6 p-1 rounded-md text-white bg-primary/40" />
+                        <p className="text-sm text-muted-foreground">{data.duration} hours</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <School className="size-6 p-1 rounded-md text-white bg-primary/40" />
+                        <p className="text-sm text-muted-foreground">{data.level}</p>
+                    </div>
+                </div>
+                <Link href={`/admin/courses/${data.id}/edit`} className={buttonVariants({ className: 'w-full mt-4' })}>
+                    Edit Course <ArrowRight className="size-4 hover:animate-pulse" />
+                </Link>
+            </CardContent>
+        </Card>
+    )
+}

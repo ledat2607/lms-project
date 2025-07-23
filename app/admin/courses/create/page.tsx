@@ -86,7 +86,6 @@ export default function CreateCoursePage() {
         toast.error(result.message);
       }
     });
-    console.log(values);
   }
 
   return (
