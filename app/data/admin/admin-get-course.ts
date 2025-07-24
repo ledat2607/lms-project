@@ -23,6 +23,23 @@ export async function adminGetSingleCourse(id:string){
         fileKey: true,
         slug: true,
         category: true,
+        chapter: {
+          select: {
+            id: true,
+            title: true,
+            position: true,
+            lessons: {
+              select: {
+                id: true,
+                title: true,
+                description: true,
+                thumbnailUrl: true,
+                videoUrl: true,
+                position: true,
+              },
+            },
+          },
+        },
       },
     });
     if(!data){
