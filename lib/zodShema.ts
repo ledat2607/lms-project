@@ -53,4 +53,11 @@
     status: z.enum(courseStatus, { message: "Status is required" }),
   });
 
+
+  export const chapterShema = z.object({
+    name: z.string().min(3, { message: "Name must be at least 3 characters" }),
+    courseId: z.string().uuid({ message: "Invalid course ID" }),
+  });
+
   export type CourseSchemasType = z.infer<typeof courseSchemas>;
+  export type ChapterShemaType = z.infer<typeof chapterShema>;

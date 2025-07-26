@@ -17,7 +17,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Card } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   ChevronDown,
@@ -32,6 +32,7 @@ import { AdminCourseSignleType } from "@/app/data/admin/admin-get-course";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { reorderChapter, reorderLessons } from "../action";
+import { NewChapterModal } from "./NewChapterModal";
 
 interface iAppProps {
   data: AdminCourseSignleType;
@@ -272,9 +273,10 @@ export function CourseConstructure({ data }: iAppProps) {
       collisionDetection={rectIntersection}
     >
       <Card>
-        <div className="border-b border-border p-4">
-          <h2 className="text-lg font-semibold">Chapters</h2>
-        </div>
+        <CardHeader className="border-b border-border flex flex-row items-center justify-between pb-4">
+          <CardTitle className="text-lg font-semibold">Chapters</CardTitle>
+          <NewChapterModal courseId={data.id} />
+        </CardHeader>
         <div className="p-4 space-y-3">
           <SortableContext
             items={items.map((c) => c.id)}
