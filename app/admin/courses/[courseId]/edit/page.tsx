@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EditCourseComponent } from "./_components/EditCourse";
 import { CourseConstructure } from "./_components/CourseConstructure";
+import Link from "next/link";
 
 type Params = Promise<{ courseId: string }>;
 
@@ -14,7 +15,9 @@ export default async function CourseEditPage({ params }: { params: Params }) {
       <div>
         <h1 className="text-3xl font-bold mb-8">
           Course edit page:{" "}
-          <span className="text-primary underline">{data.title}</span>
+          <Link href={`/admin/courses`}>
+            <span className="text-primary underline">{data.title}</span>
+          </Link>
         </h1>
 
         <Tabs defaultValue="basic-info" className="w-full">

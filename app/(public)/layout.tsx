@@ -1,3 +1,4 @@
+import AuroraBackground from "@/components/AuroraBackground";
 import { Navbar } from "./_components/Navbar";
 
 export default function LayoutPublic({
@@ -7,6 +8,7 @@ export default function LayoutPublic({
 }) {
   return (
     <div>
+      <AuroraBackground />
       <Navbar />
       <main className="container mx-auto px-4 md:px-6 lg:px-8">{children}</main>
     </div>

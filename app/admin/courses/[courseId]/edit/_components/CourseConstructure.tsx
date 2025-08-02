@@ -33,6 +33,9 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { reorderChapter, reorderLessons } from "../action";
 import { NewChapterModal } from "./NewChapterModal";
+import { NewLessonsModal } from "./NewLessonModal";
+import { DeleteLesson } from "./DeleteLesson";
+import { DeleteChapter } from "./DeleteChapter";
 
 interface iAppProps {
   data: AdminCourseSignleType;
@@ -82,7 +85,6 @@ export function CourseConstructure({ data }: iAppProps) {
       return updatedItem;
     });
   }, [data]);
-  
 
   function SortableItem({ children, id, className, data }: SortableItemProps) {
     const {
@@ -105,11 +107,10 @@ export function CourseConstructure({ data }: iAppProps) {
           ref={setNodeRef}
           style={style}
           {...attributes}
-          {...listeners}
           className={cn(
-            "touch-none list-none",
+            "list-none touch-none",
             className,
-            isDragging ? "z-10" : "z-0"
+            isDragging ? "z-0" : "z-0"
           )}
         >
           {children(listeners)}
@@ -169,26 +170,26 @@ export function CourseConstructure({ data }: iAppProps) {
 
       setItems(updatedChapterForState);
 
-      if(courseId){
-          const chaptertoUpdate = updatedChapterForState.map((chapter) => ({
-            id: chapter.id,
-            position: chapter.order,
-          }));
-          const reOrderChapterPromise = () =>
-            reorderChapter(courseId, chaptertoUpdate);
+      if (courseId) {
+        const chaptertoUpdate = updatedChapterForState.map((chapter) => ({
+          id: chapter.id,
+          position: chapter.order,
+        }));
+        const reOrderChapterPromise = () =>
+          reorderChapter(courseId, chaptertoUpdate);
 
-          toast.promise(reOrderChapterPromise(), {
-            loading: "Re-ordering position chapter....",
-            success: (result) => {
-              if (result.status === "success") return result.message;
-              throw new Error(result.message);
-            },
-            error: () => {
-              setItems(previousItem);
-              return "Failed to re-order";
-            },
-          });
-          return;
+        toast.promise(reOrderChapterPromise(), {
+          loading: "Re-ordering position chapter....",
+          success: (result) => {
+            if (result.status === "success") return result.message;
+            throw new Error(result.message);
+          },
+          error: () => {
+            setItems(previousItem);
+            return "Failed to re-order";
+          },
+        });
+        return;
       }
     }
     //Lesson re-order posintion
@@ -293,25 +294,26 @@ export function CourseConstructure({ data }: iAppProps) {
                     <div className="flex items-center justify-between p-3 border-b border-border">
                       <div className="flex items-center gap-2">
                         {/* DRAG HANDLE */}
-                        <button
+                        <div
                           className="cursor-grab opacity-60 hover:opacity-100"
                           {...listeners}
                           onClick={(e) => e.stopPropagation()}
                         >
                           <GripVertical className="size-4" />
-                        </button>
+                        </div>
 
                         {/* TOGGLE */}
-                        <button
+                        <Button
                           onClick={() => handleToggle(chapter.id)}
                           className="ml-2"
+                          type="button"
                         >
                           {chapter.isOpen ? (
                             <ChevronDown className="size-5 transition-transform" />
                           ) : (
                             <ChevronRight className="size-5 transition-transform" />
                           )}
-                        </button>
+                        </Button>
 
                         {/* TITLE */}
                         <p
@@ -322,9 +324,12 @@ export function CourseConstructure({ data }: iAppProps) {
                         </p>
                       </div>
 
-                      <Button size="icon" variant="outline">
-                        <Trash2 className="size-4" />
-                      </Button>
+                      <div>
+                        <DeleteChapter
+                          courseId={data.id}
+                          chapterId={chapter.id}
+                        />
+                      </div>
                     </div>
 
                     {chapter.isOpen && (
@@ -358,19 +363,21 @@ export function CourseConstructure({ data }: iAppProps) {
                                       {lesson.title}
                                     </Link>
                                   </div>
-                                  <Button variant="outline" size="icon">
-                                    <DeleteIcon className="size-4" />
-                                  </Button>
+                                  <DeleteLesson
+                                    courseId={data.id}
+                                    chapterId={chapter.id}
+                                    lessonId={lesson.id}
+                                  />
                                 </div>
                               )}
                             </SortableItem>
                           ))}
                         </SortableContext>
-
                         <div className="pt-2">
-                          <Button variant="outline" className="w-full">
-                            + Add lesson
-                          </Button>
+                          <NewLessonsModal
+                            chapterId={chapter.id}
+                            courseId={data.id}
+                          />
                         </div>
                       </div>
                     )}
@@ -384,37 +391,3 @@ export function CourseConstructure({ data }: iAppProps) {
     </DndContext>
   );
 }
-
-// // SortableItem Component
-// function SortableItem({
-//   id,
-//   children,
-// }: {
-//   id: string;
-//   children: (listeners: any) => React.ReactNode;
-// }) {
-//   const {
-//     attributes,
-//     listeners,
-//     setNodeRef,
-//     transform,
-//     transition,
-//     isDragging,
-//   } = useSortable({ id });
-
-//   const style = {
-//     transform: CSS.Transform.toString(transform),
-//     transition,
-//   };
-
-//   return (
-//     <div
-//       ref={setNodeRef}
-//       style={style}
-//       {...attributes}
-//       className={cn(isDragging && "z-10")}
-//     >
-//       {children(listeners)}
-//     </div>
-//   );
-// }

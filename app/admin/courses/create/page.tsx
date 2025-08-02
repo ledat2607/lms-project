@@ -44,9 +44,12 @@ import { tryCatch } from "@/hooks/try-catch";
 import { CreateCourse } from "./action";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useConfetti } from "@/hooks/use-confetti";
+
 
 export default function CreateCoursePage() {
   const [isPending, startTransaction] = useTransition();
+  const { triggerConfetti } = useConfetti();
 
   const router = useRouter();
 
@@ -80,6 +83,7 @@ export default function CreateCoursePage() {
       }
       if (result.status === "success") {
         toast.success(result.message);
+        triggerConfetti();
         form.reset();
         router.push("/admin/courses");
       } else if (result.status === "error") {
@@ -198,7 +202,11 @@ export default function CreateCoursePage() {
                   <FormItem>
                     <FormLabel>Thumbnail Image</FormLabel>
                     <FormControl>
-                      <Uploader onChange={field.onChange} value={field.value} />
+                      <Uploader
+                        onChange={field.onChange}
+                        value={field.value}
+                        fileAccepted="image"
+                      />
                     </FormControl>
                     <FormMessage className="dark:text-white" />
                   </FormItem>

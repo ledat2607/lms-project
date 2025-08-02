@@ -41,17 +41,44 @@ export function RenderErrorState() {
   );
 }
 
-export function RenderUploadedState({ previewUrl, isDeleting, handleRemoveFile }: { previewUrl: string, isDeleting: boolean, handleRemoveFile: () => void }) {
+export function RenderUploadedState({
+  previewUrl,
+  isDeleting,
+  handleRemoveFile,
+  fileType,
+}: {
+  previewUrl: string;
+  isDeleting: boolean;
+  handleRemoveFile: () => void;
+  fileType: "image" | "video";
+}) {
   return (
-    <div>
-      <Image src={previewUrl} alt="uploaded " fill className="object-contain p-2" />
-      <Button onClick={handleRemoveFile} disabled={isDeleting} variant={'destructive'} size={'icon'} className={cn("absolute top-4 right-4")}>
+    <div className="relative group w-full h-full flex items-center justify-center">
+      {fileType === "image" ? (
+        <Image
+          src={previewUrl}
+          alt="uploaded "
+          fill
+          className="object-contain p-2"
+        />
+      ) : (
+        <video src={previewUrl} controls className="rounded-md w-full h-full" />
+      )}
+      <Button
+        onClick={handleRemoveFile}
+        disabled={isDeleting}
+        variant={"destructive"}
+        size={"icon"}
+        className={cn("absolute top-4 right-4")}
+      >
         {isDeleting ? (
           <Loader className="size-4 animate-spin" />
-        ) : <XIcon className="size-4" />}
+        ) : (
+          <XIcon className="size-4" />
+        )}
       </Button>
     </div>
-  )
+  );
 }
 
 export function RenderUploadingState({ progress, file }: { progress: number, file: File }) {

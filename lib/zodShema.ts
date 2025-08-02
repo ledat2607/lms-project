@@ -59,5 +59,17 @@
     courseId: z.string().uuid({ message: "Invalid course ID" }),
   });
 
+    export const lessonSchema = z.object({
+      name: z
+        .string()
+        .min(3, { message: "Name must be at least 3 characters" }),
+      courseId: z.string().uuid({ message: "Invalid course ID" }),
+      chapterId: z.string().uuid({ message: "Invalid chapter ID" }),
+      description: z.string(),
+      thumbnailUrl: z.string().optional(),
+      videoUrl: z.string().optional(),
+    });
+
   export type CourseSchemasType = z.infer<typeof courseSchemas>;
   export type ChapterShemaType = z.infer<typeof chapterShema>;
+  export type LessonShemaType = z.infer<typeof lessonSchema>;

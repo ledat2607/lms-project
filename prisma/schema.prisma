@@ -9,16 +9,20 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String    @id @default(uuid())
   name          String?
   email         String
-  emailVerified Boolean
+  emailVerified Boolean   @default(true)
   image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
   courses       Course[]
+
+  errollment       Errollment[]
+  stripeCustomerId String?      @unique
+  amount           Int          @default(0)
 
   role       String?
   banned     Boolean?
@@ -102,8 +106,10 @@ model Course {
   status           CourseStatus @default(Draft)
   User             User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId           String?
+  stripePriceId    String?      @unique
 
-  chapter Chapter[]
+  chapter   Chapter[]
+  erollment Errollment[]
 }
 
 model Chapter {
@@ -113,7 +119,7 @@ model Chapter {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Course    Course?  @relation(fields: [courseId], references: [id])
+  Course    Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
   courseId  String?
   lessons   Lesson[]
 }
@@ -128,6 +134,27 @@ model Lesson {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Chapter   Chapter? @relation(fields: [chapterId], references: [id])
+  Chapter   Chapter? @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   chapterId String?
+}
+
+model Errollment {
+  id        String           @id @default(uuid())
+  amount    Int
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  Course    Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId  String
+  status    EnrollmentStatus @default(Pending)
+
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  @@unique([userId, courseId])
+}
+
+enum EnrollmentStatus {
+  Pending
+  Active
+  Cancelled
 }

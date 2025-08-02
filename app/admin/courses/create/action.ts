@@ -4,6 +4,7 @@ import { requiredAdmin } from "@/app/data/admin/required-admin";
 import arcject, { detectBot, fixedWindow } from "@/lib/arcject";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { stripe } from "@/lib/stripe";
 import { ApiResponse } from "@/lib/type";
 import { courseSchemas, CourseSchemasType } from "@/lib/zodShema";
 import { request } from "@arcjet/next";
@@ -33,13 +34,13 @@ export async function CreateCourse(
       fingerprint: session.user.id,
     });
 
-    if(decision.isDenied()){
-      if(decision.reason.isRateLimit()){
+    if (decision.isDenied()) {
+      if (decision.reason.isRateLimit()) {
         return {
           status: "error",
           message: "You can't able to access to this page",
         };
-      }else{
+      } else {
         return {
           status: "error",
           message: "You're bot! If this is mistake contact out support",
@@ -51,14 +52,29 @@ export async function CreateCourse(
     if (!validation.success) {
       throw new Error("Something failed");
     }
-    const data = await prisma.course.create({
-      data: { ...validation.data, userId: session?.user.id as string },
+
+    const data = await stripe.products.create({
+      name: validation.data.title,
+      description: validation.data.smallDescription,
+      default_price_data: {
+        currency: "vnd",
+        unit_amount: validation.data.price,
+      },
+    });
+
+    await prisma.course.create({
+      data: {
+        ...validation.data,
+        userId: session?.user.id as string,
+        stripePriceId: data.default_price as string,
+      },
     });
     return {
       status: "success",
       message: "Create course successfull.",
     };
-  } catch {
+  } catch (error) {
+    console.error("CreateCourse error:", error);
     return {
       status: "error",
       message: "Intenal server error",
