@@ -45,14 +45,17 @@ export default function HomePage() {
       <AuroraBackground />
 
       <section className="relative py-24 px-4 flex flex-col items-center text-center gap-4 space-y-8">
-        <Badge className="text-base px-4 py-1">🚀 The Future Of Online Study</Badge>
+        <Badge className="text-base px-4 py-1">
+          🚀 The Future Of Online Study
+        </Badge>
 
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
           Elevate your Learning Experience
         </h1>
 
         <p className="max-w-[700px] text-muted-foreground md:text-xl">
-          Discover a new way to learn with our innovative platform. Join us today and unlock your potential.
+          Discover a new way to learn with our innovative platform. Join us
+          today and unlock your potential.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-8">
