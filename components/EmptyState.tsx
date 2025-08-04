@@ -24,12 +24,14 @@ export function EmptyState({
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground mb-4">{description}</p>
-        <Link
-          href={actionHref}
-          className={buttonVariants({ variant: actionVariant })}
-        >
-          {actionLabel}
-        </Link>
+        {actionLabel && (
+          <Link
+            href={actionHref}
+            className={buttonVariants({ variant: actionVariant })}
+          >
+            {actionLabel}
+          </Link>
+        )}
       </CardContent>
     </Card>
   );

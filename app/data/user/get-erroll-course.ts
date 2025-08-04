@@ -1,3 +1,5 @@
+import "server-only";
+
 import { requireUser } from "./require-user";
 import { prisma } from "@/lib/db";
 
@@ -50,4 +52,6 @@ export async function getEnrolledCoursesForUser() {
   return data;
 }
 
-export type EnrolledCourseCard = Awaited<ReturnType<typeof getEnrolledCoursesForUser>>[0];
+export type EnrolledCourseCard = Awaited<
+  ReturnType<typeof getEnrolledCoursesForUser>
+>[0];
