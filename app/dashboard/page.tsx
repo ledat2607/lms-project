@@ -3,6 +3,7 @@ import { getAllCourses } from "../data/course/get-all-courses";
 import { getEnrolledCoursesForUser } from "../data/user/get-erroll-course";
 import { PublicCourseCard } from "../(public)/_components/PublicCourseCard";
 import Link from "next/link";
+import { CourseProgressCard } from "./_components/CourseProgressCard";
 
 export default async function DashboardUser() {
 
@@ -27,12 +28,13 @@ export default async function DashboardUser() {
         <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {errollCourses.map((course) => (
             // <PublicCourseCard key={course.Course.id} data={course.Course} />
-            <Link
-              href={`/dashboard/${course.Course.slug}`}
-              key={course.Course.id}
-            >
-              {course.Course.title}
-            </Link>
+            // <Link
+            //   href={`/dashboard/${course.Course.slug}`}
+            //   key={course.Course.id}
+            // >
+            //   {course.Course.title}
+            // </Link>
+            <CourseProgressCard key={course.Course.id} data={course} />
           ))}
         </div>
       )}

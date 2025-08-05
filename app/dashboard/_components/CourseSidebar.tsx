@@ -7,6 +7,7 @@ import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import { ChevronDown, Play } from "lucide-react";
 import { LessonItem } from "./LessonItem";
 import { usePathname } from "next/navigation";
+import { useCourseProgress } from "@/hooks/use-course-progress";
 
 interface iAppProps {
   course: CouseSidebarDataType["course"];
@@ -15,6 +16,10 @@ interface iAppProps {
 export function CouseSidebar({ course }: iAppProps) {
   const pathName = usePathname();
   const currentLessonId = pathName.split("/").pop();
+
+  const { totalLessons, progressPercent, completedLesson } = useCourseProgress({
+    courseData: course,
+  });
 
   return (
     <div className="flex flex-col h-full">
@@ -36,11 +41,13 @@ export function CouseSidebar({ course }: iAppProps) {
         <div className="space-y-2">
           <div className="flex justify-between text-xs">
             <span className="text-primary font-bold">Progress</span>
-            <span>4/10</span>
+            <span>
+              {completedLesson}/{totalLessons}
+            </span>
           </div>
-          <Progress value={55} className="h-1.5" />
+          <Progress value={progressPercent} className="h-1.5" />
           <p className="text-xs font-medium text-muted-foreground">
-            55% completed
+            {progressPercent}
           </p>
         </div>
       </div>
