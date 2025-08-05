@@ -73,6 +73,11 @@ export function CouseSidebar({ course }: iAppProps) {
                   slug={course.slug}
                   key={lesson.id}
                   isActive={currentLessonId === lesson.id}
+                  completed={
+                    lesson.lessonProgress.find(
+                      (progress) => progress.id === lesson.id
+                    )?.completed || false
+                  }
                 />
               ))}
             </CollapsibleContent>
