@@ -22,6 +22,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { DeleteCourseDialog } from "./DeleteCourse";
 import { Skeleton } from "@/components/ui/skeleton";
+import { IconDashboard } from "@tabler/icons-react";
+import { Badge } from "@/components/ui/badge";
 
 interface iAdminCourseTypeProps {
   data: AdminCourseType;
@@ -68,12 +70,15 @@ export function AdminCourseCard({ data }: iAdminCourseTypeProps) {
       />
 
       <CardContent className="p-3">
-        <Link
-          href={`/admin/courses/${data.id}/edit`}
-          className="font-medium text-lg line-clamp-2 hover:underline group-hover:text-primary transition-colors"
-        >
-          {data.title}
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link
+            href={`/admin/courses/${data.id}/edit`}
+            className="font-medium text-lg line-clamp-2 hover:underline group-hover:text-primary transition-colors"
+          >
+            {data.title}
+          </Link>
+          <Badge>{data.status}</Badge>
+        </div>
         <p className="line-clamp-2 text-sm text-muted-foreground leading-tight mt-2">
           {data.smallDescription}
         </p>
@@ -87,6 +92,12 @@ export function AdminCourseCard({ data }: iAdminCourseTypeProps) {
           <div className="flex items-center gap-2">
             <School className="size-6 p-1 rounded-md text-white bg-primary/40" />
             <p className="text-sm text-muted-foreground">{data.level}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <IconDashboard className="size-6 p-1 rounded-md text-white bg-primary/40" />
+            <p className="text-sm text-muted-foreground">
+              {data.Category.name}
+            </p>
           </div>
         </div>
         <Link

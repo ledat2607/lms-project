@@ -19,7 +19,12 @@ export async function admingetRecentCourse() {
       price: true,
       fileKey: true,
       slug: true,
-      category: true,
+      Category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   });
   return data;

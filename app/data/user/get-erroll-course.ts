@@ -21,7 +21,12 @@ export async function getEnrolledCoursesForUser() {
           fileKey: true,
           slug: true,
           duration: true,
-          category: true,
+          Category: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
           price: true,
           chapter: {
             select: {

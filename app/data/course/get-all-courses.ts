@@ -19,7 +19,12 @@ export async function getAllCourses(){
         id: true,
         level: true,
         duration: true,
-        category: true,
+        Category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
       },
     });
     return data;

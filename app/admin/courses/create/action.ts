@@ -2,7 +2,6 @@
 
 import { requiredAdmin } from "@/app/data/admin/required-admin";
 import arcject, { detectBot, fixedWindow } from "@/lib/arcject";
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
 import { ApiResponse } from "@/lib/type";
@@ -79,5 +78,41 @@ export async function CreateCourse(
       status: "error",
       message: "Intenal server error",
     };
+  }
+}
+
+export async function GetCategory() {
+  try {
+    const categories = await prisma.category.findMany({
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+    return {
+      status: "success",
+      message: "GetCategory success",
+      categories,
+    };
+  } catch (error) {
+    console.error("GetCategory error:", error);
+    return {
+      status: "error",
+      message: "Internal server error",
+    };
+  }
+}
+export async function CreateCategory(name: string) {
+  try {
+    const category = await prisma.category.create({
+      data: {
+        name,
+        slug: name.toLowerCase().replace(/\s+/g, "-"), // basic slug generation
+      },
+    });
+    return { status: "success", category };
+  } catch (error) {
+    console.error("CreateCategory error:", error);
+    return { status: "error", message: "Failed to create category" };
   }
 }

@@ -18,7 +18,12 @@ export async function adminGetCourses(){
         level: true,
         fileKey: true,
         slug: true,
-        category: true,
+        Category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
       },
     });
     return data;

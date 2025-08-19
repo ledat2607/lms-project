@@ -79,7 +79,7 @@ export default async function ProfilePage() {
               <CardDescription className="!px-0">
                 {course.smallDescription}
               </CardDescription>
-              <Badge variant="outline">{course.category}</Badge>
+              {/* <Badge variant="outline">{course.category}</Badge> */}
               <div className="text-sm text-muted-foreground">
                 Level: {course.level}
               </div>

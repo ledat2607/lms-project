@@ -17,7 +17,6 @@ const navItems = [
   { name: "Contact", href: "/contact" },
   { name: "Dashboard", href: "/admin" },
 ];
-
 export function Navbar() {
   const { data: session, isPending } = authClient.useSession();
   const pathname = usePathname();
@@ -26,12 +25,21 @@ export function Navbar() {
 
   // ✅ Scroll effect
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 10); // scroll 10px là đổi màu
-    };
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // ✅ Tùy biến link Dashboard theo role
+  const computedNavItems = navItems.map((item) => {
+    if (item.name === "Dashboard" && session?.user) {
+      if (session.user.role === "admin") {
+        return { ...item, href: "/admin" };
+      }
+      return { ...item, href: "/dashboard" };
+    }
+    return item;
+  });
 
   return (
     <header
@@ -50,7 +58,7 @@ export function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex md:flex-1 md:items-center md:justify-between">
           <div className="flex items-center space-x-4">
-            {navItems.map((item) => {
+            {computedNavItems.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
@@ -68,16 +76,6 @@ export function Navbar() {
             })}
           </div>
         </nav>
-
-        {/* Mobile Hamburger */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 focus:outline-none"
-          >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
 
         {/* Right Section */}
         <div className="hidden md:flex items-center space-x-4">
@@ -106,7 +104,7 @@ export function Navbar() {
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2">
-          {navItems.map((item) => {
+          {computedNavItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link

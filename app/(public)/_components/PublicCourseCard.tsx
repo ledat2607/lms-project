@@ -1,6 +1,6 @@
 import { PublicCourseType } from "@/app/data/course/get-all-courses";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useConstrucUrl } from "@/hooks/use-construct";
@@ -41,9 +41,15 @@ export function PublicCourseCard({ data }: iAppProps) {
           </div>
           <div className="flex items-center gap-2">
             <LayoutDashboard className="size-5 rounded-md text-primary" />
-            <p className="font-bold text-primary">{data.category}</p>
+            <p className="font-bold text-primary">{data.Category.name}</p>
           </div>
         </div>
+        <Button variant={"outline"} className="w-full mt-4 !border-rose-500">
+          {new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }).format(data.price)}
+        </Button>
         <Link
           href={`/courses/${data.slug}`}
           className={buttonVariants({

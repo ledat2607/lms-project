@@ -24,7 +24,12 @@ export async function adminGetSingleCourse(id:string){
         level: true,
         fileKey: true,
         slug: true,
-        category: true,
+        Category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
         chapter: {
           select: {
             id: true,

@@ -92,14 +92,14 @@ enum CourseStatus {
 }
 
 model Course {
-  id               String       @id @default(uuid())
-  title            String
-  description      String
-  fileKey          String
-  price            Int
-  duration         Int
-  level            CourseLevel  @default(Beginner)
-  category         String
+  id          String      @id @default(uuid())
+  title       String
+  description String
+  fileKey     String
+  price       Int
+  duration    Int
+  level       CourseLevel @default(Beginner)
+
   smallDescription String
   slug             String       @unique
   createdAt        DateTime     @default(now())
@@ -111,6 +111,9 @@ model Course {
 
   chapter   Chapter[]
   erollment Errollment[]
+
+  Category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
 }
 
 model Chapter {
@@ -173,4 +176,13 @@ model LessonProgress {
   lessonId String
 
   @@unique([userId, lessonId])
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  courses   Course[]
 }

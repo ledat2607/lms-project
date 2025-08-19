@@ -33,7 +33,7 @@ export function CouseSidebar({ course }: iAppProps) {
               {course.title}
             </h1>
             <p className="text-xs to-muted-foreground mt-1">
-              {course.category}
+              {/* {course.category} */}
             </p>
           </div>
         </div>

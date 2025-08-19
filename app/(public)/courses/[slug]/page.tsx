@@ -53,7 +53,7 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
             </Badge>
             <Badge className="flex items-center gap-3 p-2">
               <LayoutDashboard className="size-6" />
-              <span className="text-md">{course.category}</span>
+              {/* <span className="text-md">{course}</span> */}
             </Badge>
             <Badge className="flex items-center gap-3 p-2">
               <TimerIcon className="size-6" />
@@ -190,7 +190,7 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
                     </div>
                     <div>
                       <p className="text-sm font-medium">Course Category</p>
-                      <p className="text-sm">{course.category}</p>
+                      {/* <p className="text-sm">{course.category}</p> */}
                     </div>
                   </div>
                 </div>
@@ -200,10 +200,10 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
                       <IconBook className="size-4" />
                     </div>
                     <div>
-                      {course.chapter.reduce(
+                      {/* {course.chapter.reduce(
                         (total, chapter) => total + chapter.lessons.length,
                         0
-                      ) || 0}{" "}
+                      ) || 0}{" "} */}
                       Lesson
                     </div>
                   </div>

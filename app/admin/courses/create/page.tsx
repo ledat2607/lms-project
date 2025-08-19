@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  CategoryCourses,
   CourseLevel,
   CourseSchemasType,
   courseSchemas,
@@ -39,18 +38,37 @@ import {
 import { SelectValue } from "@radix-ui/react-select";
 import RichTextEditor from "@/components/rich-text-editor/Editor";
 import { Uploader } from "@/components/file-uploader/Uploader";
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { tryCatch } from "@/hooks/try-catch";
-import { CreateCourse } from "./action";
+import { CreateCategory, CreateCourse, GetCategory } from "./action";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useConfetti } from "@/hooks/use-confetti";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 export default function CreateCoursePage() {
   const [isPending, startTransaction] = useTransition();
   const { triggerConfetti } = useConfetti();
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
+    []
+  );
+  const [openDialog, setOpenDialog] = useState(false);
 
+  useEffect(() => {
+    // gọi server action
+    (async () => {
+      const data = await GetCategory();
+      setCategories(data.categories || []);
+    })();
+  }, []);
   const router = useRouter();
 
   //1 form shemas
@@ -65,7 +83,7 @@ export default function CreateCoursePage() {
       price: 1,
       duration: 1,
       level: "Beginner",
-      category: "Healthy & Fitness",
+      categoryId: categories[0]?.id,
       smallDescription: "",
       slug: "",
       status: "Draft",
@@ -91,6 +109,22 @@ export default function CreateCoursePage() {
       }
     });
   }
+const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+  const name = formData.get("name") as string;
+
+  const { status, category, message } = await CreateCategory(name);
+  if (status === "success" && category) {
+    setCategories((prev) => [category, ...prev]);
+    form.setValue("categoryId", category.id); // auto chọn category mới
+    toast.success("Category created!");
+    setOpenDialog(false);
+  } else {
+    toast.error(message || "Failed to create category");
+  }
+};
 
   return (
     <>
@@ -217,7 +251,7 @@ export default function CreateCoursePage() {
               <div className="grid grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
-                  name="category"
+                  name="categoryId"
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormLabel>Category</FormLabel>
@@ -231,18 +265,40 @@ export default function CreateCoursePage() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {CategoryCourses.map((cat) => (
-                            <SelectItem key={cat} value={cat}>
-                              {cat}
+                          {categories.map((cat) => (
+                            <SelectItem key={cat.id} value={cat.id}>
+                              {cat.name}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-
+                      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+                        <DialogTrigger asChild>
+                          <p className="text-sm text-blue-500 cursor-pointer mt-2">
+                            + Add new category
+                          </p>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Add New Category</DialogTitle>
+                          </DialogHeader>
+                          <form onSubmit={onAddCategory} className="space-y-4">
+                            <Input
+                              name="name"
+                              placeholder="Category name..."
+                              required
+                            />
+                            <DialogFooter>
+                              <Button type="submit">Save</Button>
+                            </DialogFooter>
+                          </form>
+                        </DialogContent>
+                      </Dialog>
                       <FormMessage className="dark:text-white" />
                     </FormItem>
                   )}
                 />
+
                 {/*level */}
                 <FormField
                   control={form.control}
@@ -310,6 +366,7 @@ export default function CreateCoursePage() {
                   )}
                 />
               </div>
+
               <FormField
                 control={form.control}
                 name="status"
