@@ -1,13 +1,21 @@
 import { prisma } from "@/lib/db";
 import { requiredAdmin } from "./required-admin";
 
-export async function adminGetCourses(){
-    await requiredAdmin();
+interface Props {
+  status?: string;
+}
 
+export async function adminGetCourses({ status }: Props) {
+  await requiredAdmin();
     const data = await prisma.course.findMany({
       orderBy: {
         createdAt: "desc",
       },
+      where: status
+        ? {
+            status: { equals: status as any },
+          }
+        : undefined,
       select: {
         id: true,
         title: true,
