@@ -1,5 +1,8 @@
 import { getAllCourses } from "@/app/data/course/get-all-courses";
-import { PublicCourseCard, PublicCourseCardSkeleton } from "../_components/PublicCourseCard";
+import {
+  PublicCourseCard,
+  PublicCourseCardSkeleton,
+} from "../_components/PublicCourseCard";
 import { Suspense } from "react";
 
 export default function PublicCoursePage() {
@@ -21,9 +24,7 @@ export default function PublicCoursePage() {
   );
 }
 
-
-
-async function RenderCourses(){
+async function RenderCourses() {
   const courses = await getAllCourses();
 
   return (
@@ -35,7 +36,7 @@ async function RenderCourses(){
   );
 }
 
-function LoadingSkeleton(){
+function LoadingSkeleton() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {Array.from({ length: 9 }).map((_, index) => (
