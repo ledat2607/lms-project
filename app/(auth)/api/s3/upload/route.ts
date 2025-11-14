@@ -36,13 +36,12 @@ export async function POST(request: Request) {
     headers: await headers(),
   });
   try {
-
     const decision = await aj.protect(request, {
       fingerprint: session?.user.id as string,
     });
 
-    if(decision.isDenied()){
-        return NextResponse.json({ error: "dude not good" }, { status: 429 });
+    if (decision.isDenied()) {
+      return NextResponse.json({ error: "dude not good" }, { status: 429 });
     }
 
     const body = await request.json();

@@ -14,25 +14,27 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    title: "Interactive Learning",
+    title: "Học Tập Tương Tác",
     description:
-      "Engage with interactive content that makes learning fun and effective.",
+      "Tham gia vào nội dung học tập tương tác giúp việc học trở nên thú vị và hiệu quả hơn.",
     icon: "📚",
   },
   {
-    title: "Gaming Learning",
+    title: "Học Tập Qua Trò Chơi",
     description:
-      "Gamify your study experience and retain knowledge better through fun challenges.",
+      "Biến việc học thành trò chơi với các thử thách thú vị, giúp bạn ghi nhớ kiến thức tốt hơn.",
     icon: "🎮",
   },
   {
-    title: "Expert Instructors",
-    description: "Learn from industry leaders and certified professionals.",
+    title: "Giảng Viên Chuyên Gia",
+    description:
+      "Học hỏi từ các chuyên gia đầu ngành và những người có chứng chỉ chuyên môn.",
     icon: "👩‍🏫",
   },
   {
-    title: "Anytime Access",
-    description: "Study at your own pace, from anywhere and anytime.",
+    title: "Truy Cập Mọi Lúc, Mọi Nơi",
+    description:
+      "Học theo tốc độ của riêng bạn, bất cứ khi nào và ở bất cứ đâu.",
     icon: "⏰",
   },
 ];
@@ -46,16 +48,16 @@ export default function HomePage() {
 
       <section className="relative py-24 px-4 flex flex-col items-center text-center gap-4 space-y-8">
         <Badge className="text-base px-4 py-1">
-          🚀 The Future Of Online Study
+          🚀 Tương Lai Của Học Trực Tuyến
         </Badge>
 
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-          Elevate your Learning Experience
+          Nâng Tầm Trải Nghiệm Học Tập Của Bạn
         </h1>
 
         <p className="max-w-[700px] text-muted-foreground md:text-xl">
-          Discover a new way to learn with our innovative platform. Join us
-          today and unlock your potential.
+          Khám phá cách học mới với nền tảng sáng tạo của chúng tôi. Tham gia
+          ngay hôm nay để khai phá tiềm năng của bạn.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-8">
@@ -63,7 +65,7 @@ export default function HomePage() {
             className={buttonVariants({ variant: "default", size: "lg" })}
             href="/courses"
           >
-            Get Started
+            Bắt đầu học
           </Link>
 
           {!session?.user?.id && (
@@ -71,7 +73,7 @@ export default function HomePage() {
               className={buttonVariants({ variant: "outline", size: "lg" })}
               href="/login"
             >
-              Sign In
+              Đăng nhập
             </Link>
           )}
         </div>

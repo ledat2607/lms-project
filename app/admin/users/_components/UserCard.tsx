@@ -7,12 +7,24 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 import { BanFormData, BanUserForm } from "./BanDialog";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface UserCardProps {
   user: UserAdminType;
+  total?: number;
 }
+function getUserImageUrl(image?: string | null) {
+  if (!image) return "";
 
-export default function UserCard({ user }: UserCardProps) {
+  // Nếu link đã bắt đầu bằng http thì giữ nguyên (GitHub, Google, vv.)
+  if (image.startsWith("https")) {
+    return image;
+  }
+
+  // Nếu chỉ là tên file thì thêm prefix storage URL
+  return `https://lms-project-datn.t3.storage.dev/${image}`;
+}
+export default function UserCard({ user, total }: UserCardProps) {
   const imageURL = useConstrucUrl(user?.image as string);
   const [isPending, startTransition] = useTransition();
 
@@ -47,7 +59,13 @@ export default function UserCard({ user }: UserCardProps) {
   return (
     <div className="border w-full p-4 rounded-xl mt-4 shadow-sm flex items-center justify-between">
       <div className="flex items-center w-3/4 justify-between">
-        <img src={imageURL} alt="img" className="w-16 h-16 rounded-full" />
+        <Avatar className="h-10 w-10 rounded-lg grayscale">
+          <AvatarImage
+            src={getUserImageUrl(user.image ?? "")}
+            alt={`session?.user.name`}
+          />
+          <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+        </Avatar>
         <h2 className="text-xl font-bold">{user.name}</h2>
         <p className="text-gray-600">{user.email}</p>
         <Badge className="text-gray-100">
@@ -57,7 +75,7 @@ export default function UserCard({ user }: UserCardProps) {
             currency: "VND",
           }).format(user.amount)}
         </Badge>
-        <p className="text-xl font-bold">Total enrolled courses: 5</p>
+        <p className="text-xl font-bold">Total enrolled courses:{total}</p>
       </div>
       {user.banned ? (
         <div className="flex items-center gap-2">

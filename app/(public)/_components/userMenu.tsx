@@ -42,12 +42,28 @@ export default function UserMenu() {
       },
     });
   }
+
+  function getUserImageUrl(image?: string | null) {
+    if (!image) return "";
+
+    // Nếu link đã bắt đầu bằng http thì giữ nguyên (GitHub, Google, vv.)
+    if (image.startsWith("http")) {
+      return image;
+    }
+
+    // Nếu chỉ là tên file thì thêm prefix storage URL
+    return `https://lms-project-datn.t3.storage.dev/${image}`;
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-auto p-0 hover:bg-transparent">
           <Avatar>
-            <AvatarImage src={faker.image.avatar()} alt="Profile image" />
+            <AvatarImage
+              src={getUserImageUrl(session?.user?.image ?? "")}
+              alt={session?.user.name}
+            />
             <AvatarFallback>KK</AvatarFallback>
           </Avatar>
           <ChevronDownIcon

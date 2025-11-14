@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   IconCreditCard,
@@ -7,13 +7,9 @@ import {
   IconLogout,
   IconNotification,
   IconUserCircle,
-} from "@tabler/icons-react"
+} from "@tabler/icons-react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,41 +18,54 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
-import { authClient } from "@/lib/auth-client"
-import { Button } from "./ui/button"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
-import { Home } from "lucide-react"
-import Link from "next/link"
+} from "@/components/ui/sidebar";
+import { authClient } from "@/lib/auth-client";
+import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { Home } from "lucide-react";
+import Link from "next/link";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
   const router = useRouter();
 
   const { data: session, isPending } = authClient.useSession();
-  if (isPending){
+  if (isPending) {
     return null;
   }
- async function signOut() {
-   await authClient.signOut({
-     fetchOptions: {
-       onSuccess: () => {
-         toast.success("Successfully logged out");
-         router.push("/login");
-       },
-       onError: () => {
-         toast.error("Failed to log out");
-       },
-     },
-   });
- }
+  async function signOut() {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          toast.success("Successfully logged out");
+          router.push("/login");
+        },
+        onError: () => {
+          toast.error("Failed to log out");
+        },
+      },
+    });
+  }
+
+  function getUserImageUrl(image?: string | null) {
+    if (!image) return "";
+
+    // Nếu link đã bắt đầu bằng http thì giữ nguyên (GitHub, Google, vv.)
+    if (image.startsWith("http")) {
+      return image;
+    }
+
+    // Nếu chỉ là tên file thì thêm prefix storage URL
+    return `https://lms-project-datn.t3.storage.dev/${image}`;
+  }
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -68,7 +77,7 @@ export function NavUser() {
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
                 <AvatarImage
-                  src={session?.user.image ?? ""}
+                  src={getUserImageUrl(session?.user?.image ?? "")}
                   alt={session?.user.name}
                 />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
@@ -94,7 +103,7 @@ export function NavUser() {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
-                    src={session?.user.image ?? ""}
+                    src={getUserImageUrl(session?.user?.image ?? "")}
                     alt={session?.user.name}
                   />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>

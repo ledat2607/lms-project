@@ -15,6 +15,10 @@ export const auth = betterAuth({
       clientId: env.AUTH_GITHUB_CLIENT_ID || "",
       clientSecret: env.AUTH_GITHUB_CLIENT_SECRET || "",
     },
+    google: {
+      clientId: env.GOOGLE_CLIENT_ID || "",
+      clientSecret: env.GOOGLE_CLIENT_SECRET || "",
+    },
   },
   plugins: [
     emailOTP({

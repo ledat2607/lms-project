@@ -1,35 +1,32 @@
 import { prisma } from "@/lib/db";
-import { requireUser } from "./require-user";
-import { notFound } from "next/navigation";
 
-export async function getUserProfile(){
-    const session = await requireUser();
-
-    const userInfo = await prisma.user.findUnique({
-      where: {
-        id: session.id,
+export async function getAllUsersProfile() {
+  const users = await prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      emailVerified: true,
+      amount: true,
+      image: true,
+      _count: {
+        select: { errollment: true }, // lấy tổng enrollment cho từng user
       },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        emailVerified: true,
-        amount: true,
-        image: true,
-
-        errollment: {
-          select: {
-            id: true,
-            amount: true,
-            courseId: true,
-            status: true,
-            createdAt: true,
-          },
+      errollment: {
+        select: {
+          id: true,
+          amount: true,
+          courseId: true,
+          status: true,
+          createdAt: true,
         },
       },
-    });
-    if(!userInfo){
-        return notFound();
-    }
-    return userInfo;
+    },
+  });
+
+  // Trả về thêm field errollmentCount cho tiện
+  return users.map((u) => ({
+    ...u,
+    errollmentCount: u._count.errollment,
+  }));
 }

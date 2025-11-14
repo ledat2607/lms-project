@@ -11,11 +11,11 @@ import SwitchMode from "./SwitchMode";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { name: "Home", href: "/" },
-  { name: "Courses", href: "/courses" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
-  { name: "Dashboard", href: "/admin" },
+  { name: "Trang chủ", href: "/" },
+  { name: "Khóa học", href: "/courses" },
+  { name: "Về chúng tôi", href: "/about" },
+  { name: "Liên hệ", href: "/contact" },
+  { name: "Quản lý", href: "/admin" },
 ];
 export function Navbar() {
   const { data: session, isPending } = authClient.useSession();
@@ -88,13 +88,13 @@ export function Navbar() {
                 href={"/login"}
                 className={buttonVariants({ variant: "default" })}
               >
-                Login
+                Đăng nhập
               </Link>
               <Link
                 href={"/login"}
                 className={buttonVariants({ variant: "outline" })}
               >
-                Get Started
+                Bắt đầu
               </Link>
             </div>
           )}

@@ -1,5 +1,3 @@
-import "server-only";
-
 import { requireUser } from "./require-user";
 import { prisma } from "@/lib/db";
 

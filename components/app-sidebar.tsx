@@ -31,6 +31,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { NavDev } from "./nav-dev";
+import { Separator } from "./ui/separator";
 
 const data = {
   navMain: [
@@ -44,6 +46,14 @@ const data = {
       url: "/admin/courses",
       icon: IconListDetails,
     },
+
+    {
+      title: "Users",
+      url: "/admin/users",
+      icon: IconUsers,
+    },
+  ],
+  navClouds: [
     {
       title: "Analytics",
       url: "#",
@@ -55,63 +65,26 @@ const data = {
       icon: IconFolder,
     },
     {
-      title: "Users",
-      url: "/admin/users",
-      icon: IconUsers,
-    },
-  ],
-  navClouds: [
-    {
       title: "Capture",
       icon: IconCamera,
       isActive: true,
       url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
     },
     {
       title: "Proposal",
       icon: IconFileDescription,
       url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
     },
     {
       title: "Prompts",
       icon: IconFileAi,
       url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
     },
   ],
   navSecondary: [
     {
       title: "Settings",
-      url: "#",
+      url: "/admin/settings",
       icon: IconSettings,
     },
     {
@@ -147,7 +120,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain}></NavMain>
-
+        <div className="flex items-center gap-2">
+          {" "}
+          <Separator className="flex-1" />{" "}
+          <span className="text-sm text-muted-foreground">Coming soon</span>{" "}
+          <Separator className="flex-1" />{" "}
+        </div>
+        <NavDev items={data.navClouds} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

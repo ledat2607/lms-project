@@ -17,6 +17,8 @@ export const env = createEnv({
     AWS_REGION: z.string().min(1),
     STRIPE_SECRET: z.string().min(1),
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
+    GOOGLE_CLIENT_SECRET: z.string().min(1),
+    GOOGLE_CLIENT_ID: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_S3_BUCKER_NAME_IMAGES: z.string().min(1),
