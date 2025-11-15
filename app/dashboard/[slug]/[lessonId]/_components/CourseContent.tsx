@@ -3,7 +3,7 @@ import { LessonContentType } from "@/app/data/course/get-lesson.content";
 import { RenderDescription } from "@/components/rich-text-editor/RenderDes";
 import { Button } from "@/components/ui/button";
 import { tryCatch } from "@/hooks/try-catch";
-import { useConstrucUrl } from "@/hooks/use-construct";
+import { ConstrucUrl } from "@/hooks/use-construct";
 import { BookIcon, CheckCircle } from "lucide-react";
 import { useTransition } from "react";
 import { markCompleteLesson } from "../action";
@@ -24,8 +24,8 @@ export function CourseContentId({ data }: iAppProps) {
     thumbnailUrl: string;
     videoUrl: string;
   }) {
-    const videoLink = useConstrucUrl(videoUrl);
-    const thumbnailLink = useConstrucUrl(thumbnailUrl);
+    const videoLink = ConstrucUrl(videoUrl);
+    const thumbnailLink = ConstrucUrl(thumbnailUrl);
 
     if (!videoUrl) {
       return (

@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 import { requireUser } from "@/app/data/user/require-user";
 import { prisma } from "@/lib/db";
@@ -7,23 +7,7 @@ import { ApiResponse } from "@/lib/type";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
 import { env } from "@/lib/env";
-import arcject, { detectBot, fixedWindow } from "@/lib/arcject";
-import { request } from "@arcjet/next";
 
-const aj = arcject
-  .withRule(
-    detectBot({
-      mode: "LIVE",
-      allow: [],
-    })
-  )
-  .withRule(
-    fixedWindow({
-      mode: "LIVE",
-      window: "1m",
-      max: 2,
-    })
-  );
 
 export async function errollCourse(
   courseId: string
@@ -32,15 +16,6 @@ export async function errollCourse(
 
   let checkOutUrl: string;
   try {
-    const req = await request();
-    const decision = await aj.protect(req, { fingerprint: user.id });
-
-    // if (decision.isDenied()) {
-    //   return {
-    //     status: "error",
-    //     message: "Failed",
-    //   };
-    // }
     const course = await prisma.course.findUnique({
       where: {
         id: courseId,
@@ -158,13 +133,13 @@ export async function errollCourse(
     });
     checkOutUrl = result.checkOutUrl as string;
   } catch (error) {
-    console.error("Enrollment error:", error); 
-   if (error instanceof Stripe.errors.StripeError) {
-     return {
-       status: "error",
-       message: "Payment failed",
-     };
-   }
+    console.error("Enrollment error:", error);
+    if (error instanceof Stripe.errors.StripeError) {
+      return {
+        status: "error",
+        message: "Payment failed",
+      };
+    }
     return {
       status: "error",
       message: "Internal server error",

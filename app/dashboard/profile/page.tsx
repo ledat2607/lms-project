@@ -10,7 +10,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { useConstrucUrl } from "@/hooks/use-construct";
+import { ConstrucUrl } from "@/hooks/use-construct";
 import { Button } from "@/components/ui/button";
 import { EditProfileModal } from "./_components/EditProfileModal";
 import { updateUserProfile } from "./action";
@@ -31,6 +31,8 @@ export default async function ProfilePage() {
 
   // Lọc các khóa học đã đăng ký
   const enrolledCourses = courses.filter((course) =>
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+
     user.errollment.some((e: any) => e.courseId === course.id)
   );
 
@@ -42,7 +44,7 @@ export default async function ProfilePage() {
           <Avatar className="w-16 h-16">
             {user.image && (
               <Image
-                src={useConstrucUrl(user.image)}
+                src={ConstrucUrl(user.image)}
                 alt={user.name as string}
                 fill
               />
@@ -85,7 +87,7 @@ export default async function ProfilePage() {
           >
             <div className="relative w-full h-40">
               <Image
-                src={useConstrucUrl(course.fileKey)}
+                src={ConstrucUrl(course.fileKey)}
                 alt={course.title}
                 fill
                 className="rounded-t-md object-cover"

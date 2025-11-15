@@ -6,7 +6,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-  DragEndEvent,
+
   DraggableSyntheticListeners,
   rectIntersection,
 } from "@dnd-kit/core";
@@ -23,9 +23,9 @@ import {
   ChevronDown,
   ChevronRight,
   GripVertical,
-  Trash2,
+
   FileText,
-  DeleteIcon,
+
 } from "lucide-react";
 import Link from "next/link";
 import { AdminCourseSignleType } from "@/app/data/admin/admin-get-course";
@@ -126,6 +126,7 @@ export function CourseConstructure({ data }: iAppProps) {
       prev.map((c) => (c.id === chapterId ? { ...c, isOpen: !c.isOpen } : c))
     );
   }
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
   function handleDragEnd(event: any) {
     const { active, over } = event;

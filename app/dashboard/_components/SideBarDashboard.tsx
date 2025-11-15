@@ -2,18 +2,12 @@
 
 import * as React from "react"
 import {
-  IconCamera,
-  IconChartBar,
+ 
   IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
+ 
   IconHelp,
   IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
+
   IconSearch,
   IconSettings,
   IconUsers,
@@ -31,6 +25,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import Link from "next/link";
 
 const data = {
   navMain: [
@@ -75,10 +70,10 @@ export function SideBarDashboard({ ...props }: React.ComponentProps<typeof Sideb
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="/">
+              <Link href="/">
                 <IconInnerShadowTop className="!size-5" />
                 <span className="text-base font-semibold">LMS Store</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

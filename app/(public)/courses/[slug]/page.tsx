@@ -1,15 +1,25 @@
 import { getInvidualCourse } from "@/app/data/course/get-course";
 import { RenderDescription } from "@/components/rich-text-editor/RenderDes";
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
-import { useConstrucUrl } from "@/hooks/use-construct";
-import { IconBook, IconCategory, IconChartBar, IconChevronDown, IconClock, IconPlayerPlay } from "@tabler/icons-react";
+import { ConstrucUrl } from "@/hooks/use-construct";
+import {
+  IconBook,
+  IconCategory,
+  IconChartBar,
+  IconChevronDown,
+  IconClock,
+  IconPlayerPlay,
+} from "@tabler/icons-react";
 import { CheckIcon, LayoutDashboard, TimerIcon } from "lucide-react";
 import Image from "next/image";
-import { errollCourse } from "./action";
 import { CheckIfCourseBought } from "@/app/data/user/user-is-errolled";
 import Link from "next/link";
 import { ErrollmentButton } from "./_components/ErrollButton";
@@ -20,7 +30,7 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
   const { slug } = await params;
 
   const course = await getInvidualCourse(slug);
-  const Thumbnail = useConstrucUrl(course.fileKey);
+  const Thumbnail = ConstrucUrl(course.fileKey);
 
   const isErrolled = await CheckIfCourseBought(course.id);
 

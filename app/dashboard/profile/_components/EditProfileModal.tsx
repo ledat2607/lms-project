@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
 import { Uploader } from "@/components/file-uploader/Uploader";
-import { useConstrucUrl } from "@/hooks/use-construct";
 import { toast } from "sonner";
 import { useConfetti } from "@/hooks/use-confetti";
 
@@ -38,18 +37,18 @@ export function EditProfileModal({
   const [isPending, startTransition] = useTransition();
   const { triggerConfetti } = useConfetti();
 
- const handleSubmit = async () => {
-   startTransition(async () => {
-     try {
-       await onSave({ name, image, email });
-       triggerConfetti(); // 🎉
-       toast.success("Profile updated!");
-       setOpen(false); // ✅
-     } catch (error) {
-       toast.error("Update failed");
-     }
-   });
- };
+  const handleSubmit = async () => {
+    startTransition(async () => {
+      try {
+        await onSave({ name, image, email });
+        triggerConfetti(); // 🎉
+        toast.success("Profile updated!");
+        setOpen(false); // ✅
+      } catch {
+        toast.error("Update failed");
+      }
+    });
+  };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>

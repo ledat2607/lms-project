@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useConstrucUrl } from "@/hooks/use-construct";
+import { ConstrucUrl } from "@/hooks/use-construct";
 import { LayoutDashboard, TimerIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ interface iAppProps {
 }
 
 export function PublicCourseCard({ data }: iAppProps) {
-    const thumbnailUrl = useConstrucUrl(data.fileKey);
+  const thumbnailUrl = ConstrucUrl(data.fileKey);
   return (
     <Card className="group relative py-0 gap-0">
       <Badge className="absolute top-2 right-2 z-10">{data.level}</Badge>
@@ -64,7 +64,7 @@ export function PublicCourseCard({ data }: iAppProps) {
   );
 }
 
-export function PublicCourseCardSkeleton(){
+export function PublicCourseCardSkeleton() {
   return (
     <Card className="group relative p-0 gap-0">
       <div className="absolute top-2 right-2 flex items-center">

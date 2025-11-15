@@ -13,6 +13,8 @@ export async function adminGetCourses({ status }: Props) {
       },
       where: status
         ? {
+          /* eslint-disable @typescript-eslint/no-explicit-any */
+
             status: { equals: status as any },
           }
         : undefined,

@@ -14,6 +14,7 @@ function getUserImageUrl(image?: string | null) {
   if (image.startsWith("http")) return image;
   return `https://lms-project-datn.t3.storage.dev/${image}`;
 }
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function ProfileSettingsPage({ user }: { user: any }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -26,7 +27,7 @@ export default function ProfileSettingsPage({ user }: { user: any }) {
     rawImageKey: user?.image || "", // giữ key để update DB
   });
   const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState(false);
+  const [uploading] = useState(false);
 
   // upload ảnh lên S3
   async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -64,7 +65,7 @@ export default function ProfileSettingsPage({ user }: { user: any }) {
       });
 
       if (!updateRes.ok) throw new Error("Failed to update profile with image");
-      const data = await updateRes.json();
+      // const data = await updateRes.json();
 
       // Cập nhật state hiển thị
       setForm((prev) => ({

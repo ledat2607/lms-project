@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/db";
-import { requiredAdmin } from "./required-admin";
 
 export async function adminGetInfo() {
 

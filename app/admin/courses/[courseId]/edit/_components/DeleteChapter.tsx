@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { tryCatch } from "@/hooks/try-catch";
 import { Loader2, Trash, Trash2 } from "lucide-react";
 import { useState, useTransition } from "react";
-import { deleteChapter, deleteLesson } from "../action";
+import { deleteChapter } from "../action";
 import { toast } from "sonner";
 
 export function DeleteChapter({

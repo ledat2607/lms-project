@@ -7,6 +7,8 @@ export default function CoursesGrid({
   selectedCategory,
   nameCourse,
 }: {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+
   initialCourses: any[];
   selectedCategory: string | null;
   nameCourse?: string | null;

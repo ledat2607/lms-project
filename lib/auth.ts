@@ -22,7 +22,7 @@ export const auth = betterAuth({
   },
   plugins: [
     emailOTP({
-      async sendVerificationOTP({ email, otp, type }) {
+      async sendVerificationOTP({ email, otp }) {
         try {
           let user = await prisma.user.findUnique({ where: { email } });
           console.log(user);

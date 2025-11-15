@@ -2,7 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
 import Logo from "@/public/logo lms.jpg";
 import { authClient } from "@/lib/auth-client";
 import { buttonVariants } from "@/components/ui/button";

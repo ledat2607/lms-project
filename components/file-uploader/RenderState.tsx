@@ -3,7 +3,6 @@ import { CloudUploadIcon, ImageIcon, Loader, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { Progress } from "../ui/progress";
-import { useConstrucUrl } from "@/hooks/use-construct";
 
 export function RenderEmptyState({ isDragActive }: { isDragActive: boolean }) {
   return (
@@ -24,7 +23,6 @@ export function RenderEmptyState({ isDragActive }: { isDragActive: boolean }) {
     </div>
   );
 }
-
 
 export function RenderErrorState() {
   return (
@@ -82,19 +80,28 @@ export function RenderUploadedState({
   );
 }
 
-export function RenderUploadingState({ progress, file }: { progress: number, file: File }) {
+export function RenderUploadingState({
+  progress,
+  file,
+}: {
+  progress: number;
+  file: File;
+}) {
+  return (
+    <div className="text-center flex justify-center items-center flex-col">
+      <div className="w-full h-40 bg-muted animate-pulse rounded-md mb-4" />
 
-  return <div className="text-center flex justify-center items-center flex-col">
-    <div className="w-full h-40 bg-muted animate-pulse rounded-md mb-4" />
+      {/* Progress label */}
+      <p className="text-sm text-foreground mb-2">{progress}% uploaded</p>
 
-    {/* Progress label */}
-    <p className="text-sm text-foreground mb-2">{progress}% uploaded</p>
-
-    {/* Progress bar */}
-    <Progress
-      value={progress}
-      className="w-full h-2 bg-muted-foreground/20"
-    />
-    <p className="mt-1 text-xs text-muted-foreground truncate max-w-sm">{file.name}</p>
-  </div>
+      {/* Progress bar */}
+      <Progress
+        value={progress}
+        className="w-full h-2 bg-muted-foreground/20"
+      />
+      <p className="mt-1 text-xs text-muted-foreground truncate max-w-sm">
+        {file.name}
+      </p>
+    </div>
+  );
 }

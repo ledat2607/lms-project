@@ -1,6 +1,5 @@
 import SwitchMode from "@/app/(public)/_components/SwitchMode";
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
+
 import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export function SiteHeader() {

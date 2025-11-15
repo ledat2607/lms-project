@@ -2,7 +2,6 @@
 import { banUserAction, Unbanned } from "@/app/data/admin/bann-user";
 import { UserAdminType } from "@/app/data/admin/user-function";
 import { Badge } from "@/components/ui/badge";
-import { useConstrucUrl } from "@/hooks/use-construct";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { BanFormData, BanUserForm } from "./BanDialog";
@@ -25,8 +24,7 @@ function getUserImageUrl(image?: string | null) {
   return `https://lms-project-datn.t3.storage.dev/${image}`;
 }
 export default function UserCard({ user, total }: UserCardProps) {
-  const imageURL = useConstrucUrl(user?.image as string);
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const handleBan = (data: BanFormData) => {
     startTransition(async () => {

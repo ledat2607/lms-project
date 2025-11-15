@@ -8,9 +8,16 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { chapterShema, ChapterShemaType, lessonSchema, LessonShemaType } from "@/lib/zodShema";
+import { lessonSchema, LessonShemaType } from "@/lib/zodShema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Plus } from "lucide-react";
 import { useState } from "react";
@@ -19,7 +26,6 @@ import { useTransition } from "react";
 import { tryCatch } from "@/hooks/try-catch";
 import { createLesson } from "../action";
 import { toast } from "sonner";
-
 
 export function NewLessonsModal({
   courseId,
@@ -32,9 +38,8 @@ export function NewLessonsModal({
   const [pending, startTransaction] = useTransition();
 
   function handleOpenChange(open: boolean) {
-
-    if(!open){
-     form.reset();
+    if (!open) {
+      form.reset();
     }
 
     setIsOpen(open);

@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useConstrucUrl } from "@/hooks/use-construct";
+import { ConstrucUrl } from "@/hooks/use-construct";
 import {
   ArrowRight,
   EyeIcon,
@@ -16,7 +16,6 @@ import {
   Pencil,
   School,
   TimerIcon,
-  Trash2,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -62,7 +61,7 @@ export function AdminCourseCard({ data }: iAdminCourseTypeProps) {
       </div>
 
       <Image
-        src={useConstrucUrl(data.fileKey)}
+        src={ConstrucUrl(data.fileKey)}
         alt="thumbnail"
         width={600}
         height={800}

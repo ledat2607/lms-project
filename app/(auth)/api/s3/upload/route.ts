@@ -9,7 +9,7 @@ import arcject, { detectBot, fixedWindow } from "@/lib/arcject";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
-export const fileUploadShema = z.object({
+const fileUploadShema = z.object({
   fileName: z.string().min(1, { message: "Flename is required" }),
   contentType: z.string().min(1, { message: "Content is required" }),
   size: z.number().min(1),

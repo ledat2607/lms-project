@@ -9,17 +9,14 @@ import {
 } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
 import { GithubIcon, Loader } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+
+import { useTransition } from "react";
 import { toast } from "sonner";
 import { FaGoogle } from "react-icons/fa";
 
 export function LoginForm() {
-  const router = useRouter();
   const [githubIsPending, startGithubTransition] = useTransition();
-  const [emailIsPending, startEmailTransition] = useTransition();
   const [googleIsPending, startGoogleTransition] = useTransition();
-  const [email, setEmail] = useState("");
 
   //Login function for GitHub
   async function loginWithGithub() {
@@ -37,7 +34,7 @@ export function LoginForm() {
             },
           },
         });
-      } catch (error) {
+      } catch {
         toast.error("Failed to login with GitHub");
       }
     });
@@ -59,38 +56,14 @@ export function LoginForm() {
             },
           },
         });
-      } catch (error) {
+      } catch {
         toast.error("Failed to login with Google");
       }
     });
   }
 
   //Login function for Email
-  function loginWithEmail() {
-    startEmailTransition(async () => {
-      try {
-        await authClient.emailOtp.sendVerificationOtp({
-          email: email,
-          type: "sign-in",
-          fetchOptions: {
-            onSuccess: () => {
-              toast.success(
-                "Verification email sent! Please check your inbox."
-              );
-              router.push(`/verify-email?email=${email}`);
-            },
-            onError: () => {
-              toast.error(
-                "Failed to send verification email. Please try again."
-              );
-            },
-          },
-        });
-      } catch (error) {
-        toast.error("Failed to login with Email");
-      }
-    });
-  }
+ 
   return (
     <Card className="flex flex-col gap-4">
       <CardHeader className="text-3xl font-bold dark:text-gray-200">

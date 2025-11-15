@@ -5,6 +5,7 @@ import CoursesGrid from "./CoursesGrid";
 import { Input } from "@/components/ui/input";
 import CategoryList from "./CategoryList ";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default function PublicCoursePage({ initialCourses }: { initialCourses: any[] }) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [name, setName] = useState("");

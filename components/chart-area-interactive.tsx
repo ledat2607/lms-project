@@ -3,7 +3,6 @@
 import * as React from "react"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
-import { useIsMobile } from "@/hooks/use-mobile"
 import {
   Card,
   CardContent,
@@ -35,12 +34,10 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
-  const isMobile = useIsMobile();
- 
-    const total = React.useMemo(
-      () => data.reduce((acc, cur) => acc + cur.errollments, 0),
-      [data]
-    );
+  const total = React.useMemo(
+    () => data.reduce((acc, cur) => acc + cur.errollments, 0),
+    [data]
+  );
 
   return (
     <Card className="@container/card">

@@ -4,7 +4,14 @@ import { requiredAdmin } from "@/app/data/admin/required-admin";
 import arcject, { detectBot, fixedWindow } from "@/lib/arcject";
 import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/type";
-import { chapterShema, ChapterShemaType, courseSchemas, CourseSchemasType, lessonSchema, LessonShemaType } from "@/lib/zodShema";
+import {
+  chapterShema,
+  ChapterShemaType,
+  courseSchemas,
+  CourseSchemasType,
+  lessonSchema,
+  LessonShemaType,
+} from "@/lib/zodShema";
 import { request } from "@arcjet/next";
 import { revalidatePath } from "next/cache";
 
@@ -157,16 +164,15 @@ export async function createChapter(
   values: ChapterShemaType
 ): Promise<ApiResponse> {
   try {
-
     const result = chapterShema.safeParse(values);
 
-    if(!result.success){
+    if (!result.success) {
       return {
         status: "error",
         message: "Invalid data",
       };
     }
-    await prisma.$transaction(async(tx)=>{
+    await prisma.$transaction(async (tx) => {
       const maxPos = await tx.chapter.findFirst({
         where: {
           courseId: result.data.courseId,
@@ -185,7 +191,7 @@ export async function createChapter(
           position: (maxPos?.position ?? 0) + 1,
         },
       });
-    })
+    });
     revalidatePath(`/admin/courses/${result.data.courseId}/edit`);
     return {
       status: "success",
@@ -200,7 +206,9 @@ export async function createChapter(
 }
 
 //create lesson
-export async function createLesson(values: LessonShemaType): Promise<ApiResponse> {
+export async function createLesson(
+  values: LessonShemaType
+): Promise<ApiResponse> {
   try {
     const result = lessonSchema.safeParse(values);
 
@@ -275,7 +283,7 @@ export async function deleteLesson({
         },
       },
     });
-    if(!chapterWithLesson){
+    if (!chapterWithLesson) {
       return {
         status: "error",
         message: "Chapter not found",
@@ -285,16 +293,14 @@ export async function deleteLesson({
 
     const lessonDelete = lessons.find((lesson) => lesson.id === lessonId);
 
-    if(!lessonDelete){
+    if (!lessonDelete) {
       return {
         status: "error",
         message: "Lesson not found",
       };
     }
-    const remainingLesson = lessons.filter(
-      (lesson) => lesson.id !== lessonId
-    );
-    const updates = remainingLesson.map((lesson,index)=>{
+    const remainingLesson = lessons.filter((lesson) => lesson.id !== lessonId);
+    const updates = remainingLesson.map((lesson, index) => {
       return prisma.lesson.update({
         where: {
           id: lesson.id,
@@ -303,7 +309,7 @@ export async function deleteLesson({
           position: index + 1,
         },
       });
-    })
+    });
     await prisma.$transaction([
       ...updates,
       prisma.lesson.delete({
@@ -318,7 +324,7 @@ export async function deleteLesson({
       status: "success",
       message: "Delete lesson successfull",
     };
-  } catch (error) {
+  } catch {
     return { status: "error", message: "Failed" };
   }
 }
@@ -365,7 +371,7 @@ export async function deleteChapter({
       };
     }
     const remainingChapter = chapters.filter((chap) => chap.id !== chapterId);
-    
+
     const updates = remainingChapter.map((chap, index) => {
       return prisma.chapter.update({
         where: {
@@ -389,7 +395,7 @@ export async function deleteChapter({
       status: "success",
       message: "Delete chapter successfull",
     };
-  } catch (error) {
+  } catch {
     return { status: "error", message: "Failed" };
   }
 }

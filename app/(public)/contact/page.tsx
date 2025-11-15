@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,10 +14,6 @@ export default function ContactPage() {
   const [status, setStatus] = useState<string | null>(null);
 
   const { triggerPaymentConfetti } = usePaymentConfetti();
-
-  // useEffect(() => {
-  //   triggerPaymentConfetti();
-  // }, [triggerPaymentConfetti]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
