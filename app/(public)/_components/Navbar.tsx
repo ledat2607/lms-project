@@ -31,11 +31,15 @@ export function Navbar() {
 
   // ✅ Tùy biến link Dashboard theo role
   const computedNavItems = navItems.map((item) => {
-    if (item.name === "Dashboard" && session?.user) {
-      if (session.user.role === "admin") {
-        return { ...item, href: "/admin" };
+    if (item.name === "Quản lý") {
+      if (session?.user) {
+        return {
+          ...item,
+          href: session.user.role === "admin" ? "/admin" : "/dashboard",
+        };
+      } else {
+        return { ...item, href: "/login" }; // guest chưa login
       }
-      return { ...item, href: "/dashboard" };
     }
     return item;
   });
