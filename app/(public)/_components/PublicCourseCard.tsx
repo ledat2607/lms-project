@@ -56,7 +56,7 @@ export function PublicCourseCard({ data }: iAppProps) {
         <p className="line-clamp-2 text-sm text-muted-foreground leading-tight mt-2">
           {data.smallDescription}
         </p>
-        <div className="flex items-center mt-4 gap-x-5 justify-between">
+        <div className="flex items-center mt-4 gap-5 justify-between text-balance">
           <div className="flex items-center gap-2">
             <TimerIcon className="size-5 rounded-md text-primary" />
             <p className="font-bold text-primary">{data.duration} hours</p>

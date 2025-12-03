@@ -123,19 +123,19 @@ export function NavUser() {
               <DropdownMenuItem asChild>
                 <Link href={"/"}>
                   <Home />
-                  Homepage
+                  Trang chủ
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href={"/admin/dashboard"}>
                   <IconDashboard />
-                  Dashboard
+                  Bảng điều khiển
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href={"/admin/courses"}>
                   <IconNotification />
-                  Courses
+                  Khóa học
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -143,7 +143,7 @@ export function NavUser() {
             <DropdownMenuItem>
               <Button className="w-full" onClick={signOut}>
                 <IconLogout className="text-white" />
-                Log out
+                Đăng xuất
               </Button>
             </DropdownMenuItem>
           </DropdownMenuContent>

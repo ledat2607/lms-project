@@ -1,28 +1,47 @@
-import { NextResponse } from "next/server";
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
-  try {
-    const { name, email, message } = await req.json();
+  const { name, email, message } = await req.json();
 
-    await resend.emails.send({
-      from: "Your LMS <onboarding@resend.dev>",
-      to: "datle.dev@gmail.com",
-      subject: `New Contact Message from ${name}`,
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMPT_HOST,
+    port: Number(process.env.SMPT_PORT),
+    secure: process.env.SMPT_PORT === "465",
+    auth: {
+      user: process.env.SMPT_MAIL,
+      pass: process.env.SMPT_PASSWORD,
+    },
+  });
+
+  try {
+    await transporter.sendMail({
+      from: `"LMS Support Team" <${process.env.SMPT_MAIL}>`, // Ẩn email cá nhân
+      to: email, // gửi đến email khách hàng nhập
+      subject: `Cảm ơn bạn đã liên hệ với LMS`,
       html: `
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <div style="font-family: Arial, sans-serif; color: #333;">
+          <div style="background-color: #0ea5e9; color: #fff; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1>LMS Support Team</h1>
+          </div>
+          <div style="padding: 20px;">
+            <p>Xin chào <strong>${name}</strong>,</p>
+            <p>Cảm ơn bạn đã liên hệ với chúng tôi. Chúng tôi đã nhận được tin nhắn của bạn:</p>
+            <blockquote style="background: #f1f1f1; padding: 10px; border-left: 4px solid #0ea5e9;">
+              ${message}
+            </blockquote>
+            <p>Chúng tôi sẽ phản hồi bạn trong thời gian sớm nhất.</p>
+            <p>Trân trọng,<br/>LMS Support Team</p>
+          </div>
+          <div style="background-color: #f1f1f1; padding: 10px; text-align: center; font-size: 12px; color: #666; border-radius: 0 0 8px 8px;">
+            © 2025 LMS. All rights reserved.
+          </div>
+        </div>
       `,
     });
 
-    // 👇 quan trọng: trả về status 200
-    return NextResponse.json({ success: true }, { status: 200 });
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (error) {
-    console.error("Send mail error:", error);
-    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+    console.error(error);
+    return new Response(JSON.stringify({ error: "Failed to send email" }), { status: 500 });
   }
 }

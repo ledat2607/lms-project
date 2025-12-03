@@ -113,14 +113,16 @@ export default function ProfileSettingsPage({ user }: { user: any }) {
 
   return (
     <div className="container max-w-3xl mx-auto py-10 space-y-6">
-      <h1 className="text-3xl font-bold tracking-tight">Profile Settings</h1>
+      <h1 className="text-3xl font-bold tracking-tight">
+        Cập nhật thông tin cá nhân
+      </h1>
       <p className="text-muted-foreground">
-        Update your personal information and account details
+        Cập nhật thông tin cá nhân và chi tiết tài khoản của bạn
       </p>
 
       <Card>
         <CardHeader>
-          <CardTitle>Personal Information</CardTitle>
+          <CardTitle>Thông tin cá nhân</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Avatar */}
@@ -148,7 +150,7 @@ export default function ProfileSettingsPage({ user }: { user: any }) {
                 {uploading ? "Uploading..." : "Change Avatar"}
               </Button>
               <p className="text-sm text-muted-foreground">
-                JPG, PNG, less than 5MB
+                JPG, PNG, nhỏ hơn 5MB
               </p>
             </div>
           </div>
@@ -156,7 +158,7 @@ export default function ProfileSettingsPage({ user }: { user: any }) {
           {/* Form fields */}
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name">Họ và tên</Label>
               <Input
                 id="name"
                 value={form.name}
@@ -177,7 +179,7 @@ export default function ProfileSettingsPage({ user }: { user: any }) {
 
           <div className="flex justify-end">
             <Button onClick={handleSave} disabled={loading}>
-              {loading ? "Saving..." : "Save Changes"}
+              {loading ? "Đang lưu..." : "Lưu thay đổi"}
             </Button>
           </div>
         </CardContent>

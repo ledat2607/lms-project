@@ -276,7 +276,7 @@ export function CourseConstructure({ data }: iAppProps) {
     >
       <Card>
         <CardHeader className="border-b border-border flex flex-row items-center justify-between pb-4">
-          <CardTitle className="text-lg font-semibold">Chapters</CardTitle>
+          <CardTitle className="text-lg font-semibold">Chương</CardTitle>
           <NewChapterModal courseId={data.id} />
         </CardHeader>
         <div className="p-4 space-y-3">

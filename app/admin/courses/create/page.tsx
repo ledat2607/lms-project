@@ -136,15 +136,15 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
           className="flex items-center gap-4 hover:-translate-x-3 duration-300 ease-in-out"
         >
           <ArrowLeft className="size-4" />
-          Back
+          Trở lại
         </Link>
-        <h1 className="font-bold capitalize text-primary">Create Course</h1>
+        <h1 className="font-bold capitalize text-primary">Tạo khóa học</h1>
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>Basic Infomation</CardTitle>
+          <CardTitle>Thông tin cơ bản</CardTitle>
           <CardDescription className="!px-0">
-            Provide basic infomation for your course
+            Cung cấp thông tin cơ bản cho khóa học của bạn
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -156,9 +156,12 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>Tiêu đề</FormLabel>
                     <FormControl>
-                      <Input placeholder="Title your course...." {...field} />
+                      <Input
+                        placeholder="Tiêu đề khóa học của bạn...."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage className="dark:text-white" />
                   </FormItem>
@@ -174,7 +177,10 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                     <FormItem className="w-full">
                       <FormLabel>Slug</FormLabel>
                       <FormControl>
-                        <Input placeholder="Slug your course...." {...field} />
+                        <Input
+                          placeholder="Slug khóa học của bạn...."
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage className="dark:text-white" />
                     </FormItem>
@@ -190,7 +196,7 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                     form.setValue("slug", slug, { shouldValidate: true });
                   }}
                 >
-                  Generate slug <SparkleIcon className="ml-2" size={4} />
+                  Tạo slug <SparkleIcon className="ml-2" size={4} />
                 </Button>
               </div>
 
@@ -200,11 +206,11 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                 name="smallDescription"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Smaill Description</FormLabel>
+                    <FormLabel>Mô tả ngắn</FormLabel>
                     <FormControl>
                       <Textarea
                         className="min-h-[120px]"
-                        placeholder="Short description your course...."
+                        placeholder="Mô tả ngắn về khóa học của bạn...."
                         {...field}
                       />
                     </FormControl>
@@ -219,7 +225,7 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>Mô tả</FormLabel>
                     <FormControl>
                       <RichTextEditor field={field} />
                     </FormControl>
@@ -234,7 +240,7 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                 name="fileKey"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Thumbnail Image</FormLabel>
+                    <FormLabel>Ảnh đại diện</FormLabel>
                     <FormControl>
                       <Uploader
                         onChange={field.onChange}
@@ -254,14 +260,14 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                   name="categoryId"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Category</FormLabel>
+                      <FormLabel>Danh mục</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
                         <FormControl>
                           <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Please choose Course's category...." />
+                            <SelectValue placeholder="Vui lòng chọn danh mục khóa học...." />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -275,21 +281,21 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
                         <DialogTrigger asChild>
                           <p className="text-sm text-blue-500 cursor-pointer mt-2">
-                            + Add new category
+                            + Thêm danh mục mới
                           </p>
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader>
-                            <DialogTitle>Add New Category</DialogTitle>
+                            <DialogTitle>Thêm danh mục mới</DialogTitle>
                           </DialogHeader>
                           <form onSubmit={onAddCategory} className="space-y-4">
                             <Input
                               name="name"
-                              placeholder="Category name..."
+                              placeholder="Tên danh mục..."
                               required
                             />
                             <DialogFooter>
-                              <Button type="submit">Save</Button>
+                              <Button type="submit">Lưu</Button>
                             </DialogFooter>
                           </form>
                         </DialogContent>
@@ -312,7 +318,7 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                       >
                         <FormControl>
                           <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Please choose Course's level...." />
+                            <SelectValue placeholder="Vui lòng chọn cấp độ khóa học...." />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -335,10 +341,10 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                   name="duration"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Duration Time</FormLabel>
+                      <FormLabel>Thời lượng</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Duration time (hours)....."
+                          placeholder="Thời lượng (giờ)....."
                           type="number"
                           {...field}
                         />
@@ -356,7 +362,7 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                       <FormLabel>Price ($)</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Course Price ....."
+                          placeholder="Giá khóa học ....."
                           type="number"
                           {...field}
                         />
@@ -372,14 +378,14 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
                 name="status"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Status Course</FormLabel>
+                    <FormLabel>Trạng thái khóa học</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Please choose Course's status...." />
+                          <SelectValue placeholder="Vui lòng chọn trạng thái khóa học...." />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -398,12 +404,12 @@ const onAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
               <Button type="submit" disabled={isPending}>
                 {isPending ? (
                   <>
-                    Creating...
+                    Đang tạo...
                     <Loader2 className="animate-spin" />
                   </>
                 ) : (
                   <>
-                    Create Course <PlusCircle className="ml-1" size={4} />
+                    Tạo khóa học <PlusCircle className="ml-1" size={4} />
                   </>
                 )}
               </Button>

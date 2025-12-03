@@ -34,22 +34,25 @@ export function BanUserForm({ onConfirm }: BanUserFormProps) {
   return (
     <div className="border p-4 rounded-xl flex flex-col gap-4 w-80">
       <div>
-        <Label htmlFor="reason">Reason</Label>
+        <Label htmlFor="reason">Lý do</Label>
         <Input
           id="reason"
-          placeholder="Enter ban reason..."
+          placeholder="Nhập lý do cấm..."
           value={reason}
           onChange={(e) => setReason(e.target.value)}
         />
       </div>
 
       <div>
-        <Label>Ban Expires</Label>
+        <Label>Ngày hết hạn cấm</Label>
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="outline" className="w-full justify-start text-left font-normal">
+            <Button
+              variant="outline"
+              className="w-full justify-start text-left font-normal"
+            >
               <CalendarIcon className="mr-2 h-4 w-4" />
-              {date ? format(date, "PPP") : "Pick a date"}
+              {date ? format(date, "PPP") : "Chọn ngày"}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0">
@@ -64,7 +67,7 @@ export function BanUserForm({ onConfirm }: BanUserFormProps) {
       </div>
 
       <Button variant="destructive" onClick={handleBan} disabled={loading}>
-        {loading ? "Banning..." : "Confirm Ban"}
+        {loading ? "Đang cấm..." : "Xác nhận cấm"}
       </Button>
     </div>
   );

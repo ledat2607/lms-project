@@ -43,7 +43,7 @@ async function RenderCourse({
   return (
     <>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold uppercase">Your course</h1>
+        <h1 className="text-2xl font-bold uppercase">Khóa học của bạn</h1>
 
         <Link
           href="/admin/courses/create"
@@ -51,7 +51,7 @@ async function RenderCourse({
         >
           <Button>
             <PlusCircle className="size-4 mr-2" />
-            Create your course
+            Tạo khóa học
           </Button>
         </Link>
       </div>
@@ -63,12 +63,12 @@ async function RenderCourse({
 
       {isEmpty ? (
         <div className="flex flex-col items-center justify-center py-20 text-center text-muted-foreground">
-          <p className="text-lg mb-4">You don’t have any courses yet.</p>
+          <p className="text-lg mb-4">Bạn chưa có khóa học nào ?</p>
 
           <Link href="/admin/courses/create">
             <Button>
               <PlusCircle className="size-4 mr-2" />
-              Create your first course
+              Tạo khóa học
             </Button>
           </Link>
         </div>

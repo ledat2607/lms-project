@@ -54,21 +54,22 @@ export function DeleteLesson({
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure ?</AlertDialogTitle>
+          <AlertDialogTitle>Bạn chắc chắn chứ ?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action can not undone. This will permanently delete this lesson
+            Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn bài học
+            này
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>Hủy</AlertDialogCancel>
           {pending ? (
             <Button onClick={handleDelete} disabled={pending}>
-              <Loader2 className="animate-spin" /> Deleting
+              <Loader2 className="animate-spin" /> Đang xóa
             </Button>
           ) : (
             <Button onClick={handleDelete}>
               <Trash />
-              Delete
+              Xóa
             </Button>
           )}
         </AlertDialogFooter>

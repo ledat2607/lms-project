@@ -35,6 +35,7 @@ export default function ContactPage() {
 
     if (res.ok && data.success) {
       toast.success("Send email successfull");
+      e.currentTarget.reset();
       triggerPaymentConfetti();
       setLoading(false);
     } else {
@@ -46,10 +47,13 @@ export default function ContactPage() {
     <div className="container mx-auto mt-10 px-4 max-w-5xl">
       {/* Header */}
       <div className="text-center space-y-4 mb-12">
-        <h1 className="text-4xl font-bold tracking-tight">Contact Us</h1>
+        <h1 className="text-4xl font-bold tracking-tight">
+          Liên hệ với chúng tôi
+        </h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          Have questions or need help? Our team is here to assist you. Reach out
-          via the form below or through our contact details.
+          Nếu bạn có câu hỏi hoặc cần trợ giúp, đội ngũ của chúng tôi luôn sẵn
+          sàng hỗ trợ bạn. Hãy liên hệ qua biểu mẫu bên dưới hoặc thông tin liên
+          hệ của chúng tôi.
         </p>
       </div>
 
@@ -57,25 +61,25 @@ export default function ContactPage() {
         {/* Contact form */}
         <Card>
           <CardHeader>
-            <CardTitle>Send us a message</CardTitle>
+            <CardTitle>Gửi tin nhắn cho chúng tôi</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <Input name="name" placeholder="Your Name" required />
+              <Input name="name" placeholder="Tên của bạn" required />
               <Input
                 name="email"
                 type="email"
-                placeholder="Your Email"
+                placeholder="Email của bạn"
                 required
               />
               <Textarea
                 name="message"
-                placeholder="Your Message"
+                placeholder="Tin nhắn của bạn"
                 rows={5}
                 required
               />
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Sending..." : "Send Message"}
+                {loading ? "Đang gửi..." : "Gửi tin nhắn"}
               </Button>
               {status && <p className="text-sm mt-2">{status}</p>}
             </form>
@@ -97,7 +101,7 @@ export default function ContactPage() {
           <Card>
             <CardHeader className="flex items-center gap-2">
               <Phone className="h-5 w-5 text-green-500" />
-              <CardTitle>Phone</CardTitle>
+              <CardTitle>Điện thoại</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">+84 123 456 789</p>
@@ -107,7 +111,7 @@ export default function ContactPage() {
           <Card>
             <CardHeader className="flex items-center gap-2">
               <MapPin className="h-5 w-5 text-red-500" />
-              <CardTitle>Address</CardTitle>
+              <CardTitle>Địa chỉ</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">

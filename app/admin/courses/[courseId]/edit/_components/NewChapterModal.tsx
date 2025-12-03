@@ -62,16 +62,16 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
       <DialogTrigger asChild>
         <Button variant={"default"} size={"sm"} className="gap-2">
           <Plus className="size-4" />
-          New Chapter
+          Chương mới
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="font-bold capitalize">
-            Create new chapter
+            Tạo chương mới
           </DialogTitle>
           <DialogDescription>
-            What would you like to name your chapter ?
+            Bạn muốn đặt tên cho chương của mình là gì?
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -81,10 +81,10 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Chapter name</FormLabel>
+                  <FormLabel>Tên chương</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Chapter name - Ex: Chapter 1....."
+                      placeholder="Tên chương - Ví dụ: Chương 1....."
                       {...field}
                     />
                   </FormControl>
@@ -95,11 +95,11 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
             <DialogFooter>
               {pending ? (
                 <Button disabled type="submit">
-                  <Loader2 className="animate-spin" /> Creating....
+                  <Loader2 className="animate-spin" /> Đang tạo....
                 </Button>
               ) : (
                 <Button disabled={pending} type="submit">
-                  Create
+                  Tạo
                 </Button>
               )}
             </DialogFooter>

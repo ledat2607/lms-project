@@ -42,12 +42,12 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
   return (
     <Card className="@container/card">
       <CardHeader>
-        <CardTitle>Total Errollments</CardTitle>
+        <CardTitle>Tổng đăng ký</CardTitle>
         <CardDescription className="!px-0">
           <span className="hidden xl:block">
-            Total errollments for the last 30 days: {total}
+            Tổng đăng ký trong 30 ngày qua: {total}
           </span>
-          <span className="xl:hidden block">Last 30 days: {total}</span>
+          <span className="xl:hidden block">30 ngày qua: {total}</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">

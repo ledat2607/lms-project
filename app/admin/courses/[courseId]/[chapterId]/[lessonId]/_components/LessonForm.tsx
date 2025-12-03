@@ -80,15 +80,15 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
         })}
       >
         <ArrowLeft className="size-4" />
-        <span>Go back</span>
+        <span>Trở lại</span>
       </Link>
       <Card>
         <CardHeader>
           <CardTitle className="capitalize font-bold">
-            Lesson configruation
+            Cấu hình bài học
           </CardTitle>
           <CardDescription className="!px-0">
-            Configruation video, thumbnail and description for lesson
+            Cấu hình video, hình thu nhỏ và mô tả cho bài học
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -100,9 +100,9 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Lesson Name</FormLabel>
+                    <FormLabel>Tên bài học</FormLabel>
                     <FormControl>
-                      <Input placeholder="Ex.Lesson 1....." {...field} />
+                      <Input placeholder="Ví dụ: Bài học 1....." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -115,7 +115,7 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Lesson Description</FormLabel>
+                    <FormLabel>Mô tả bài học</FormLabel>
                     <FormControl>
                       <RichTextEditor field={field} />
                     </FormControl>
@@ -130,7 +130,7 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
                 name="thumbnailUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Thumbnail Image</FormLabel>
+                    <FormLabel>Hình thu nhỏ</FormLabel>
                     <FormControl>
                       <Uploader
                         onChange={field.onChange}
@@ -163,10 +163,10 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
               {pending ? (
                 <Button disabled={pending} type="submit">
                   <Loader2 className="size-4 animate-spin" />
-                  Updating...
+                  Đang cập nhật...
                 </Button>
               ) : (
-                <Button type="submit">Save Lesson</Button>
+                <Button type="submit">Lưu bài học</Button>
               )}
             </form>
           </Form>

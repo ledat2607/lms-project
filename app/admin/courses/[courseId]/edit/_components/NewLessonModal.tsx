@@ -82,16 +82,16 @@ export function NewLessonsModal({
           className="gap-2 w-full justify-center mt-6"
         >
           <Plus className="size-4" />
-          New Lesson
+          Bài học mới
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="font-bold capitalize">
-            Create new lesson for chapter
+            Tạo bài học mới cho chương
           </DialogTitle>
           <DialogDescription>
-            What would you like to title your lesson ?
+            Bạn muốn đặt tên cho bài học của mình là gì?
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -101,10 +101,10 @@ export function NewLessonsModal({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Lesson title</FormLabel>
+                  <FormLabel>Tên bài học</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Lesson title - Ex: Lesson 1....."
+                      placeholder="Tên bài học - Ví dụ: Bài học 1....."
                       {...field}
                     />
                   </FormControl>
@@ -116,11 +116,11 @@ export function NewLessonsModal({
             <DialogFooter>
               {pending ? (
                 <Button type="submit">
-                  <Loader2 className="animate-spin" /> Creating....
+                  <Loader2 className="animate-spin" /> Đang tạo....
                 </Button>
               ) : (
                 <Button disabled={pending} type="submit">
-                  Create Lesson
+                  Tạo bài học
                 </Button>
               )}
             </DialogFooter>

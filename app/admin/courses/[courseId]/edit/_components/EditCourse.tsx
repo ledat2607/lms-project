@@ -109,9 +109,9 @@ export function EditCourseComponent({ data }: iAppProps) {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>Tiêu đề</FormLabel>
                 <FormControl>
-                  <Input placeholder="Title your course...." {...field} />
+                  <Input placeholder="Tiêu đề khóa học của bạn...." {...field} />
                 </FormControl>
                 <FormMessage className="dark:text-white" />
               </FormItem>
@@ -127,7 +127,7 @@ export function EditCourseComponent({ data }: iAppProps) {
                 <FormItem className="w-full">
                   <FormLabel>Slug</FormLabel>
                   <FormControl>
-                    <Input placeholder="Slug your course...." {...field} />
+                    <Input placeholder="Slug khóa học của bạn...." {...field} />
                   </FormControl>
                   <FormMessage className="dark:text-white" />
                 </FormItem>
@@ -143,7 +143,7 @@ export function EditCourseComponent({ data }: iAppProps) {
                 form.setValue("slug", slug, { shouldValidate: true });
               }}
             >
-              Generate slug <SparkleIcon className="ml-2" size={4} />
+              Tạo slug <SparkleIcon className="ml-2" size={4} />
             </Button>
           </div>
 
@@ -187,7 +187,7 @@ export function EditCourseComponent({ data }: iAppProps) {
             name="fileKey"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Thumbnail Image</FormLabel>
+                <FormLabel>Ảnh đại diện</FormLabel>
                 <FormControl>
                   <Uploader
                     onChange={field.onChange}
@@ -207,14 +207,14 @@ export function EditCourseComponent({ data }: iAppProps) {
               name="categoryId"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>Danh mục</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Please choose Course's category...." />
+                        <SelectValue placeholder="Vui lòng chọn danh mục khóa học...." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -236,14 +236,14 @@ export function EditCourseComponent({ data }: iAppProps) {
               name="level"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Level</FormLabel>
+                  <FormLabel>Cấp độ</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Please choose Course's level...." />
+                        <SelectValue placeholder="Vui lòng chọn cấp độ khóa học...." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -266,10 +266,10 @@ export function EditCourseComponent({ data }: iAppProps) {
               name="duration"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Duration Time</FormLabel>
+                  <FormLabel>Thời lượng</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Duration time (hours)....."
+                      placeholder="Thời lượng....."
                       type="number"
                       {...field}
                     />
@@ -284,10 +284,10 @@ export function EditCourseComponent({ data }: iAppProps) {
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price ($)</FormLabel>
+                  <FormLabel>Giá</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Course Price ....."
+                      placeholder="Giá khóa học ....."
                       type="number"
                       {...field}
                     />
@@ -302,14 +302,14 @@ export function EditCourseComponent({ data }: iAppProps) {
             name="status"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Status Course</FormLabel>
+                <FormLabel>Trạng thái khóa học</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
                   <FormControl>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Please choose Course's status...." />
+                      <SelectValue placeholder="Vui lòng chọn trạng thái khóa học...." />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -328,12 +328,12 @@ export function EditCourseComponent({ data }: iAppProps) {
           <Button type="submit" disabled={isPending}>
             {isPending ? (
               <>
-                Updating...
+                Đang cập nhật...
                 <Loader2 className="animate-spin" />
               </>
             ) : (
               <>
-                Update Course <PlusCircle className="ml-1" size={4} />
+                Cập nhật khóa học <PlusCircle className="ml-1" size={4} />
               </>
             )}
           </Button>

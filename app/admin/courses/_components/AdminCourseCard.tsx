@@ -43,13 +43,13 @@ export function AdminCourseCard({ data }: iAdminCourseTypeProps) {
             <DropdownMenuItem asChild>
               <Link href={`/admin/courses/${data.id}/edit`}>
                 <Pencil className="size-4 mr-2" />
-                Edit Course
+                Chỉnh sửa khóa học
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href={`/courses/${data.slug}`}>
                 <EyeIcon className="size-4 mr-2" />
-                Preview
+                Xem trước
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -103,7 +103,8 @@ export function AdminCourseCard({ data }: iAdminCourseTypeProps) {
           href={`/admin/courses/${data.id}/edit`}
           className={buttonVariants({ className: "w-full mt-4" })}
         >
-          Edit Course <ArrowRight className="size-4 hover:animate-pulse" />
+          Chỉnh sửa khóa học{" "}
+          <ArrowRight className="size-4 hover:animate-pulse" />
         </Link>
       </CardContent>
     </Card>

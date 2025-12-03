@@ -19,12 +19,12 @@ export default async function AdminIndexPage() {
       <ChartAreaInteractive data={errollmentData} />
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl  font-semibold">Recent Course</h2>
+          <h2 className="text-xl  font-semibold">Khóa học mới tạo</h2>
           <Link
             href={"/admin/courses"}
             className={buttonVariants({ variant: "destructive" })}
           >
-            View all course
+            Xem tất cả khóa học
           </Link>
         </div>
         <Suspense fallback={<RenderRecentCourseSkeleton />}>

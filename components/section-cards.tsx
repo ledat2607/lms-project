@@ -23,7 +23,7 @@ export async function SectionCards() {
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 xl:grid-cols-4">
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription className="!px-0">Total Signups</CardDescription>
+          <CardDescription className="!px-0">Tổng người đăng ký</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {totalSignups}
           </CardTitle>
@@ -36,17 +36,17 @@ export async function SectionCards() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Register user on the platform <IconTrendingUp className="size-4" />
+            Người dùng đăng ký mới <IconTrendingUp className="size-4" />
           </div>
           <div className="text-muted-foreground">
-            Visitors for the last 6 months
+            Trong 6 tháng gần nhất
           </div>
         </CardFooter>
       </Card>
 
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription className="!px-0">New Customers</CardDescription>
+          <CardDescription className="!px-0">Khách hàng mới</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {totalCustomers}
           </CardTitle>
@@ -59,18 +59,19 @@ export async function SectionCards() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Up 10% this period <IconTrendingUp className="size-4" />
+            Tăng 10% so với kỳ trước <IconTrendingUp className="size-4" />
           </div>
           <div className="text-muted-foreground">
-            Acquisition needs attention
+            Cần tập trung hơn vào thu hút
           </div>
         </CardFooter>
       </Card>
+
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription className="!px-0">Course</CardDescription>
+          <CardDescription className="!px-0">Khoá học</CardDescription>
           <CardTitle className="text-xl font-semibold tabular-nums @[250px]/card:text-2xl">
-            {totalCourses} courses - {totalLessons} lessons
+            {totalCourses} khoá học - {totalLessons} bài học
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
@@ -81,14 +82,15 @@ export async function SectionCards() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Strong user retention <IconTrendingUp className="size-4" />
+            Tỷ lệ giữ chân cao <IconTrendingUp className="size-4" />
           </div>
-          <div className="text-muted-foreground">Engagement exceed targets</div>
+          <div className="text-muted-foreground">Tương tác vượt mục tiêu</div>
         </CardFooter>
       </Card>
+
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription className="!px-0">Earn Money</CardDescription>
+          <CardDescription className="!px-0">Doanh thu</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {new Intl.NumberFormat("vi-VN", {
               style: "currency",
@@ -104,9 +106,10 @@ export async function SectionCards() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Steady performance increase <IconMoneybag className="size-4" />
+            Hiệu suất tăng trưởng ổn định{" "}
+            <IconMoneybag className="size-4" />
           </div>
-          <div className="text-muted-foreground">Meets growth projections</div>
+          <div className="text-muted-foreground">Đạt dự báo tăng trưởng</div>
         </CardFooter>
       </Card>
     </div>
