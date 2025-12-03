@@ -7,8 +7,11 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ConstrucUrl } from "@/hooks/use-construct";
 import { useCourseProgress } from "@/hooks/use-course-progress";
+import { Pencil, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { ReviewModal } from "./review-modal";
 
 interface iAppProps {
   data: EnrolledCourseCard;
@@ -16,9 +19,9 @@ interface iAppProps {
 
 export function CourseProgressCard({ data }: iAppProps) {
   const thumbnailUrl = ConstrucUrl(data.Course.fileKey);
+  const [openModal, setOpenModal] = useState(false);
   const { totalLessons, progressPercent, completedLesson } = useCourseProgress({
     /* eslint-disable @typescript-eslint/no-explicit-any */
-
     courseData: data.Course as any,
   });
   return (
@@ -53,15 +56,37 @@ export function CourseProgressCard({ data }: iAppProps) {
             </p>
           </div>
         </div>
-        <Link
-          href={`/dashboard/${data.Course.slug}`}
-          className={buttonVariants({
-            variant: "destructive",
-            className: "w-full mt-4",
-          })}
-        >
-          Learn more
-        </Link>
+        <div className="flex lg:flex-row flex-col items-center justify-between gap-2">
+          <Link
+            href={`/dashboard/${data.Course.slug}`}
+            className={buttonVariants({
+              variant: "destructive",
+              className: "lg:w-[60%] w-full mt-4",
+            })}
+          >
+            <Send className="mr-2" /> Truy cập
+          </Link>
+          <Link
+            href={`#`}
+            onClick={(e) => {
+              e.preventDefault();
+              setOpenModal(true);
+            }}
+            className={buttonVariants({
+              variant: "outline",
+              className: "lg:w-[30%] w-full mt-4 p-2",
+            })}
+          >
+            <Pencil className="mr-2" />
+            Đánh giá
+          </Link>
+          <ReviewModal
+            courseId={data.Course.id}
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            courseTitle={data.Course.title}
+          />
+        </div>
       </CardContent>
     </Card>
   );

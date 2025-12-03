@@ -11,6 +11,7 @@ export async function getAllCourses(){
         createdAt: "desc",
       },
       select: {
+        reviews: true,
         title: true,
         price: true,
         smallDescription: true,

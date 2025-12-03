@@ -7,6 +7,11 @@ export async function getInvidualCourse(slug: string) {
       slug: slug,
     },
     select: {
+      reviews: {
+        include: {
+          User: true,
+        },
+      },
       title: true,
       price: true,
       description: true,

@@ -5,47 +5,41 @@ import { PublicCourseCard } from "../(public)/_components/PublicCourseCard";
 import { CourseProgressCard } from "./_components/CourseProgressCard";
 
 export default async function DashboardUser() {
+  const [courses, errollCourses] = await Promise.all([
+    getAllCourses(),
+    getEnrolledCoursesForUser(),
+  ]);
 
-    const [courses, errollCourses] = await Promise.all([
-      getAllCourses(),
-      getEnrolledCoursesForUser(),
-    ]);
   return (
     <>
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold text-primary">Erroll Courses</h1>
-        <p>Here you can see all course you have access to</p>
+        <h1 className="text-3xl font-bold text-primary">Khoá học đã đăng ký</h1>
+        <p>Tại đây bạn có thể xem tất cả khoá học mà bạn đã đăng ký</p>
       </div>
+
       {errollCourses.length === 0 ? (
         <EmptyState
-          title="No course purchased"
-          description="You have not purchased any course"
+          title="Bạn chưa đăng ký khoá học nào"
+          description="Hiện tại bạn chưa mua bất kỳ khoá học nào"
           actionHref="/courses"
-          actionLabel="Erroll course"
+          actionLabel="Đăng ký khoá học"
         />
       ) : (
-        <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {errollCourses.map((course) => (
-            // <PublicCourseCard key={course.Course.id} data={course.Course} />
-            // <Link
-            //   href={`/dashboard/${course.Course.slug}`}
-            //   key={course.Course.id}
-            // >
-            //   {course.Course.title}
-            // </Link>
             <CourseProgressCard key={course.Course.id} data={course} />
           ))}
         </div>
       )}
+
       <section className="mt-10">
         <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold text-primary">
-            Available course for you
-          </h1>
+          <h1 className="text-3xl font-bold text-primary">Khoá học dành cho bạn</h1>
           <p className="text-muted-foreground">
-            Here you can see any course for you
+            Tại đây bạn có thể xem tất cả khoá học mà bạn có thể học thêm
           </p>
         </div>
+
         {courses.filter(
           (course) =>
             !errollCourses.some(
@@ -53,13 +47,13 @@ export default async function DashboardUser() {
             )
         ).length === 0 ? (
           <EmptyState
-            title="No course available for you"
+            title="Không có khoá học nào dành cho bạn"
             description=""
             actionHref="/"
             actionLabel=""
           />
         ) : (
-          <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
             {courses
               .filter(
                 (course) =>

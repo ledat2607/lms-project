@@ -17,6 +17,7 @@ import {
   IconChevronDown,
   IconClock,
   IconPlayerPlay,
+  IconStar,
 } from "@tabler/icons-react";
 import { CheckIcon, LayoutDashboard, TimerIcon } from "lucide-react";
 import Image from "next/image";
@@ -26,16 +27,29 @@ import { ErrollmentButton } from "./_components/ErrollButton";
 
 type Params = Promise<{ slug: string }>;
 
+function getUserImageUrl(image?: string | null) {
+  if (!image) return "";
+
+  // Nếu link đã bắt đầu bằng http thì giữ nguyên (GitHub, Google, vv.)
+  if (image.startsWith("https")) {
+    return image;
+  }
+
+  // Nếu chỉ là tên file thì thêm prefix storage URL
+  return `https://lms-project-datn.t3.storage.dev/${image}`;
+}
+
 export default async function CourseSlugPage({ params }: { params: Params }) {
   const { slug } = await params;
 
   const course = await getInvidualCourse(slug);
   const Thumbnail = ConstrucUrl(course.fileKey);
-
+  
   const isErrolled = await CheckIfCourseBought(course.id);
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 mt-5">
+      {/*left*/}
       <div className="order-1 lg:col-span-2">
         <div className="relative aspect-video w-full overflow-hidden rounded-xl shadow-lg">
           <Image
@@ -63,7 +77,7 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
             </Badge>
             <Badge className="flex items-center gap-3 p-2">
               <LayoutDashboard className="size-6" />
-              {/* <span className="text-md">{course}</span> */}
+              <span className="text-md">{course.Category.name}</span>
             </Badge>
             <Badge className="flex items-center gap-3 p-2">
               <TimerIcon className="size-6" />
@@ -151,6 +165,57 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
             ))}
           </div>
         </div>
+        <Separator className="my-8 bg-primary" />
+        <span className="text-2xl font-semibold mt-6">
+          Đánh giá về khóa học
+        </span>
+        {/* Reviews */}
+        {course.reviews.map((review) => (
+          <div
+            key={review.id}
+            className="border rounded-lg p-4 mb-4 bg-card shadow-sm mt-2"
+          >
+            <div className="flex items-start gap-3">
+              {/* Avatar User */}
+              <img
+                src={getUserImageUrl(review.User?.image || "")}
+                alt="User Avatar"
+                className="w-12 h-12 rounded-full object-cover"
+              />
+
+              <div className="flex-1">
+                {/* User Name */}
+                <p className="font-semibold">
+                  {review.User?.name || "Ẩn danh"}
+                </p>
+
+                {/* Rating */}
+                <div className="flex gap-1 mt-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span key={i}>
+                      {i < review.rating ? (
+                        <IconStar
+                          fill="yellow"
+                          className="size-4 border-yellow-500"
+                        />
+                      ) : (
+                        <IconStar className=" size-4" />
+                      )}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Comment */}
+                <p className="mt-2 text-muted-foreground">{review.comment}</p>
+
+                {/* Created Time */}
+                <p className="text-xs text-muted-foreground mt-1">
+                  {new Date(review.createdAt).toLocaleDateString("vi-VN")}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
       {/*Errollment card */}
       <div className="order-2 lg:col-span-1">

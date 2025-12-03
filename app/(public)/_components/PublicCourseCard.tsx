@@ -4,7 +4,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ConstrucUrl } from "@/hooks/use-construct";
-import { LayoutDashboard, TimerIcon } from "lucide-react";
+import { LayoutDashboard, Send, Star, TimerIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,6 +13,11 @@ interface iAppProps {
 }
 
 export function PublicCourseCard({ data }: iAppProps) {
+  const totalReviews = data.reviews.length;
+  const averageRating =
+    totalReviews > 0
+      ? data.reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
+      : 0;
   const thumbnailUrl = ConstrucUrl(data.fileKey);
   return (
     <Card className="group relative py-0 gap-0">
@@ -25,12 +30,29 @@ export function PublicCourseCard({ data }: iAppProps) {
         className="w-full rounded-t-xl aspect-video"
       />
       <CardContent className="p-4">
-        <Link
-          href={`/courses/${data.slug}`}
-          className="font-medium text-lg line-clamp-2 hover:underline group-hover:text-primary transition-colors"
-        >
-          {data.title}
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href={`/courses/${data.slug}`}
+            className="font-medium text-lg line-clamp-2 hover:underline group-hover:text-primary transition-colors mt-2"
+          >
+            {data.title}
+          </Link>
+          <div className="flex items-center mt-2 gap-1">
+            {[1, 2, 3, 4, 5].map((num) => (
+              <Star
+                key={num}
+                className={`w-4 h-4 ${
+                  num <= Math.round(averageRating)
+                    ? "text-yellow-400 fill-yellow-400"
+                    : "text-gray-300"
+                }`}
+              />
+            ))}
+            <span className="text-sm text-muted-foreground ml-1">
+              ({totalReviews})
+            </span>
+          </div>
+        </div>
         <p className="line-clamp-2 text-sm text-muted-foreground leading-tight mt-2">
           {data.smallDescription}
         </p>
@@ -57,7 +79,8 @@ export function PublicCourseCard({ data }: iAppProps) {
             className: "w-full mt-4",
           })}
         >
-          Learn more
+          <Send className="mr-2" />
+          Truy cập
         </Link>
       </CardContent>
     </Card>
