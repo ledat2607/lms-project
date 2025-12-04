@@ -29,6 +29,7 @@ model User {
   banReason      String?
   banExpires     DateTime?
   lessonProgress LessonProgress[]
+  reviews        Review[]
 
   @@unique([email])
   @@map("user")
@@ -114,6 +115,7 @@ model Course {
 
   Category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String
+  reviews    Review[]
 }
 
 model Chapter {
@@ -185,4 +187,20 @@ model Category {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   courses   Course[]
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  userId    String
+  courseId  String
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User   @relation(fields: [userId], references: [id])
+  Course Course @relation(fields: [courseId], references: [id])
+
+  @@unique([userId, courseId])
+  @@map("review")
 }

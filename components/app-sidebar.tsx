@@ -2,12 +2,9 @@
 
 import * as React from "react";
 import {
-  
   IconDashboard,
-
   IconInnerShadowTop,
   IconListDetails,
-
   IconSettings,
   IconUsers,
 } from "@tabler/icons-react";
@@ -78,7 +75,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain}></NavMain>
         <div className="flex items-center gap-2">
           {" "}
-          <Separator className="flex-1" /> <Separator className="flex-1" />{" "}
+          <Separator className="flex-1" /> <Separator className="flex-1" />
         </div>
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
