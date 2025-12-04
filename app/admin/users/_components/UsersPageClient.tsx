@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import UserCard from "./UserCard";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default function UsersPageClient({ users }: { users: any[] }) {
   const [displayData, setDisplayData] = useState(users);
   const [statusFilter, setStatusFilter] = useState("all");

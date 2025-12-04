@@ -2,16 +2,12 @@
 
 import * as React from "react";
 import {
-  IconCamera,
-  IconChartBar,
+  
   IconDashboard,
-  IconFileAi,
-  IconFileDescription,
-  IconFolder,
-  IconHelp,
+
   IconInnerShadowTop,
   IconListDetails,
-  IconSearch,
+
   IconSettings,
   IconUsers,
 } from "@tabler/icons-react";
@@ -28,7 +24,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { NavDev } from "./nav-dev";
 import { Separator } from "./ui/separator";
 import Link from "next/link";
 
