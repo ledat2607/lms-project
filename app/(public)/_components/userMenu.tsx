@@ -21,6 +21,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function UserMenu() {
   const router = useRouter();
@@ -83,15 +84,27 @@ export default function UserMenu() {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <BookOpenIcon size={16} className="opacity-60" aria-hidden="true" />
-            <span>Profile</span>
+            <Link
+              href={session?.user.role === "admin" ? `/admin` : "/dashboard"}
+            >
+              Quản lý
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Layers2Icon size={16} className="opacity-60" aria-hidden="true" />
-            <span>Courses</span>
+            <Link href={"/courses"}>Khóa học</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <BoltIcon size={16} className="opacity-60" aria-hidden="true" />
-            <span>Setting</span>
+            <Link
+              href={
+                session?.user.role === "admin"
+                  ? `/admin/settings`
+                  : "/dashboard/profile"
+              }
+            >
+              Hồ sơ cá nhân
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
