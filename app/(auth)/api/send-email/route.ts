@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 
   try {
     await transporter.sendMail({
-      from: `"LMS Support Team" <${process.env.SMPT_MAIL}>`, // Ẩn email cá nhân
+      from: `"LMS Support Team" <${process.env.SMTP_MAIL}>`, // Ẩn email cá nhân
       to: email, // gửi đến email khách hàng nhập
       subject: `Cảm ơn bạn đã liên hệ với LMS`,
       html: `
