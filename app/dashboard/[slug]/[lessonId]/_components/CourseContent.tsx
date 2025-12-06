@@ -15,6 +15,7 @@ interface iAppProps {
 }
 
 export function CourseContentId({ data }: iAppProps) {
+  console.log(data)
   const [pending, startTransittion] = useTransition();
   const { triggerConfetti } = useConfetti();
   function VideoPlayer({
@@ -31,7 +32,7 @@ export function CourseContentId({ data }: iAppProps) {
       return (
         <div className="aspect-video bg-muted rounded-lg flex items-center flex-col justify-center">
           <BookIcon className="size-16 text-muted-foreground mx-auto mb-4" />
-          <p>This lesson does not have video</p>
+          <p>Bài học không có video hướng dẫn</p>
         </div>
       );
     }
@@ -73,12 +74,14 @@ export function CourseContentId({ data }: iAppProps) {
       <div className="py-4 border-b">
         {data.lessonProgress.length > 0 ? (
           <Button
-            variant={"destructive"}
+            variant={
+              data.lessonProgress[0].completed ? "completed" : "destructive"
+            }
             onClick={handleSubmit}
-            disabled={pending}
+            disabled={pending || data.lessonProgress[0].completed}
           >
             <CheckCircle className="size-4 mr-2 text-white" />
-            Completed
+            Hoàn thành
           </Button>
         ) : (
           <Button
@@ -87,7 +90,7 @@ export function CourseContentId({ data }: iAppProps) {
             disabled={pending}
           >
             <CheckCircle className="size-4 mr-2 text-white" />
-            Mark as complete
+            Đánh dấu hoàn thành
           </Button>
         )}
       </div>

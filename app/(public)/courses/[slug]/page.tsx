@@ -46,7 +46,6 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
   const Thumbnail = ConstrucUrl(course.fileKey);
   
   const isErrolled = await CheckIfCourseBought(course.id);
-
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 mt-5">
       {/*left*/}
@@ -81,27 +80,27 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
             </Badge>
             <Badge className="flex items-center gap-3 p-2">
               <TimerIcon className="size-6" />
-              <span className="text-md">{course.duration} hours</span>
+              <span className="text-md">{course.duration} giờ</span>
             </Badge>
           </div>
           <Separator className="my-8 bg-primary" />
           <div className="space-y-6">
             <h2 className="text-3xl font-semibold tracking-tight">
-              Course Description
+              Mô tả khóa học
             </h2>
             <RenderDescription json={JSON.parse(course.description)} />
           </div>
         </div>
         <div className="mt-12 space-y-6">
           <div className="flex items-center justify-between">
-            <h2>Course Content</h2>
+            <h2>Nội dung khóa học</h2>
             <div>
-              {course.chapter.length} Chapter |{" "}
+              {course.chapter.length} Chương |{" "}
               {course.chapter.reduce(
                 (total, chapter) => total + chapter.lessons.length,
                 0
               ) || 0}{" "}
-              Lesson
+              Bài học
             </div>
           </div>
           <div className="space-y-4">
@@ -121,14 +120,13 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
                                 {chapter.title}
                               </h3>
                               <p className="text-sm text-muted-foreground mt-1 text-left">
-                                {chapter.lessons.length} lessons
+                                {chapter.lessons.length} bài học
                               </p>
                             </div>
                           </div>
                           <div className="flex items-center gap-3">
                             <Badge variant={"outline"} className="text-sm">
-                              {chapter.lessons.length} lesson
-                              {chapter.lessons.length !== 1 ? "s" : ""}
+                              {chapter.lessons.length} bài học
                             </Badge>
                             <IconChevronDown className="size-5 text-md" />
                           </div>
@@ -152,7 +150,7 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
                                 {lesson.title}
                               </p>
                               <p className="text-sm text-muted-foreground mt-1">
-                                Lesson {lessonIndex + 1}
+                                Bài học {lessonIndex + 1}
                               </p>
                             </div>
                           </div>
@@ -223,7 +221,7 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
           <Card className="py-0">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <span className="mr-2 font-bold text-2xl">Price</span>
+                <span className="mr-2 font-bold text-2xl">Giá</span>
                 <span className="text-3xl font-bold text-primary ">
                   {new Intl.NumberFormat("vi-VN", {
                     style: "currency",
@@ -233,17 +231,15 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
               </div>
               <Separator className="w-3/4 mt-2 bg-primary" />
               <div>
-                <h4 className="font-medium text-xl mt-4">
-                  What will you get:{" "}
-                </h4>
+                <h4 className="font-medium text-xl mt-4">Bạn sẽ nhận được: </h4>
                 <div className="flex flex-col gap-3 mt-4">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center size-8 justify-center rounded-full bg-primary/40">
                       <IconClock className="size-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium">Course Duration</p>
-                      <p className="text-sm">{course.duration} hours</p>
+                      <p className="text-sm font-medium">Thời lượng khóa học</p>
+                      <p className="text-sm">{course.duration} giờ</p>
                     </div>
                   </div>
                 </div>
@@ -253,7 +249,7 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
                       <IconChartBar className="size-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium">Course Level</p>
+                      <p className="text-sm font-medium">Cấp độ khóa học</p>
                       <p className="text-sm">{course.level}</p>
                     </div>
                   </div>
@@ -264,8 +260,8 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
                       <IconCategory className="size-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium">Course Category</p>
-                      {/* <p className="text-sm">{course.category}</p> */}
+                      <p className="text-sm font-medium">Danh mục khóa học</p>
+                      <p className="text-sm">{course.Category.name}</p>
                     </div>
                   </div>
                 </div>
@@ -275,55 +271,55 @@ export default async function CourseSlugPage({ params }: { params: Params }) {
                       <IconBook className="size-4" />
                     </div>
                     <div>
-                      {/* {course.chapter.reduce(
+                      {course.chapter.reduce(
                         (total, chapter) => total + chapter.lessons.length,
                         0
-                      ) || 0}{" "} */}
-                      Lesson
+                      ) || 0}{" "}
+                      Bài học
                     </div>
                   </div>
                 </div>
               </div>
               <Separator className="mt-3 bg-primary/70" />
               <div className="mb-6 space-y-3">
-                <h4 className="font-bold mt-3 text-xl">This course include:</h4>
+                <h4 className="font-bold mt-3 text-xl">Khóa học bao gồm:</h4>
                 <ul className="space-y-2 list-none">
                   <li className="flex items-center gap-3">
                     <div className="rounded-full bg-green-500/20 text-green-800 dark:text-white px-2 py-2">
                       <CheckIcon className="size-4" />
                     </div>
-                    <span>Full lifetime access</span>
+                    <span>Truy cập trọn đời</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="rounded-full bg-green-500/20 text-green-800 dark:text-white px-2 py-2">
                       <CheckIcon className="size-4" />
                     </div>
-                    <span>Access on Desktop & Mobile</span>
+                    <span>Truy cập trên máy tính & di động</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="rounded-full bg-green-500/20 text-green-800 dark:text-white  px-2 py-2">
                       <CheckIcon className="size-4" />
                     </div>
-                    <span>Certificate of completion</span>
+                    <span>Chứng chỉ hoàn thành</span>
                   </li>
                 </ul>
               </div>
 
               {isErrolled ? (
                 <Link
-                  href={"/"}
+                  href={`/dashboard/${slug}`}
                   className={buttonVariants({
                     variant: "destructive",
                     className: "w-full",
                   })}
                 >
-                  Watch course
+                  Xem khóa học
                 </Link>
               ) : (
                 <ErrollmentButton courseId={course.id} />
               )}
               <p className="mt-3 text-center text-xs text-muted-foreground">
-                30 Days money-back guarantee
+                Bảo đảm hoàn tiền trong 30 ngày
               </p>
             </CardContent>
           </Card>

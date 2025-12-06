@@ -6,7 +6,6 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-
   DraggableSyntheticListeners,
   rectIntersection,
 } from "@dnd-kit/core";
@@ -23,9 +22,7 @@ import {
   ChevronDown,
   ChevronRight,
   GripVertical,
-
   FileText,
-
 } from "lucide-react";
 import Link from "next/link";
 import { AdminCourseSignleType } from "@/app/data/admin/admin-get-course";
@@ -52,17 +49,21 @@ interface SortableItemProps {
 }
 
 export function CourseConstructure({ data }: iAppProps) {
+
   const initialItems =
     data.chapter.map((chapter) => ({
       id: chapter.id,
       title: chapter.title,
       order: chapter.position,
       isOpen: true,
-      lessons: chapter.lessons.map((lesson) => ({
-        id: lesson.id,
-        title: lesson.title,
-        order: lesson.position,
-      })),
+      lessons: chapter.lessons
+        .slice()
+        .sort((a, b) => a.position - b.position) // 🆕 sort here
+        .map((lesson) => ({
+          id: lesson.id,
+          title: lesson.title,
+          order: lesson.position,
+        })),
     })) || [];
 
   const [items, setItems] = useState(initialItems);
@@ -76,11 +77,14 @@ export function CourseConstructure({ data }: iAppProps) {
           order: chapter.position,
           isOpen:
             prevItems.find((item) => item.id === chapter.id)?.isOpen ?? true,
-          lessons: chapter.lessons.map((lesson) => ({
-            id: lesson.id,
-            title: lesson.title,
-            order: lesson.position,
-          })),
+          lessons: chapter.lessons
+            .slice()
+            .sort((a, b) => a.position - b.position) // 🆕 sort here
+            .map((lesson) => ({
+              id: lesson.id,
+              title: lesson.title,
+              order: lesson.position,
+            })),
         })) || [];
       return updatedItem;
     });
@@ -126,8 +130,8 @@ export function CourseConstructure({ data }: iAppProps) {
       prev.map((c) => (c.id === chapterId ? { ...c, isOpen: !c.isOpen } : c))
     );
   }
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   function handleDragEnd(event: any) {
     const { active, over } = event;
     if (!over || active.id === over.id) return;

@@ -46,13 +46,14 @@ export function CourseProgressCard({ data }: iAppProps) {
         </p>
         <div className="space-y-4">
           <div>
-            <p>Progress</p>
+            <p>Hoàn thành</p>
             <Progress value={progressPercent} className="h-1.5" />
           </div>
           <div>
             <p className="text-xs font-bold">
               {" "}
-              Completed {completedLesson} lesson of total {totalLessons} lessons{" "}
+              Hoàn thành {completedLesson} bài học trong tổng số {totalLessons}{" "}
+              bài học{" "}
             </p>
           </div>
         </div>

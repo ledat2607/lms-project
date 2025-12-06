@@ -23,7 +23,7 @@ export function LessonItem({ lesson, slug, isActive, completed }: iAppProps) {
         variant: completed ? "completed" : "outline",
         className: cn(
           "w-full p-2.5 h-auto justify-start transition-all",
-          completed && "bg-green-400 hover:bg-green-600"
+          completed && "bg-green-500 hover:bg-green-600 text-white"
         ),
       })}
     >
@@ -44,10 +44,10 @@ export function LessonItem({ lesson, slug, isActive, completed }: iAppProps) {
             {lesson.position}: {lesson.title}
           </p>
           {completed && (
-            <p className="text-[10px] text-white font-bold">Completed</p>
+            <p className="text-[10px] text-white font-bold">Hoàn thành</p>
           )}
           {isActive && !completed && (
-            <p className="text-xs font-semibold">Currently watching</p>
+            <p className="text-xs font-semibold">Đang xem</p>
           )}
         </div>
       </div>

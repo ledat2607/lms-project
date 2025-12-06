@@ -33,21 +33,21 @@ export function CouseSidebar({ course }: iAppProps) {
               {course.title}
             </h1>
             <p className="text-xs to-muted-foreground mt-1">
-              {/* {course.category} */}
+              {course.Category.name}
             </p>
           </div>
         </div>
 
         <div className="space-y-2">
           <div className="flex justify-between text-xs">
-            <span className="text-primary font-bold">Progress</span>
+            <span className="text-primary font-bold">Tiến độ</span>
             <span>
               {completedLesson}/{totalLessons}
             </span>
           </div>
           <Progress value={progressPercent} className="h-1.5" />
           <p className="text-xs font-medium text-muted-foreground">
-            {progressPercent}
+            {progressPercent} % hoàn thành
           </p>
         </div>
       </div>
@@ -82,7 +82,7 @@ export function CouseSidebar({ course }: iAppProps) {
                   isActive={currentLessonId === lesson.id}
                   completed={
                     lesson.lessonProgress.find(
-                      (progress) => progress.id === lesson.id
+                      (progress) => progress.lessonId === lesson.id
                     )?.completed || false
                   }
                 />

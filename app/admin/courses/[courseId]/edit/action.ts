@@ -73,10 +73,11 @@ export async function editCourse(
       status: "success",
       message: "Course updated successfull",
     };
-  } catch {
+  } catch (error) {
+    console.error(error);
     return {
       status: "error",
-      message: "Invalid",
+      message: "Something went wrong",
     };
   }
 }
