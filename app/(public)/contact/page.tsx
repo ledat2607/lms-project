@@ -35,7 +35,7 @@ export default function ContactPage() {
 
     if (res.ok && data.success) {
       toast.success("Send email successfull");
-      e.currentTarget.reset();
+      
       triggerPaymentConfetti();
       setLoading(false);
     } else {

@@ -59,6 +59,8 @@ export async function POST(request: Request) {
       ContentType: contentType,
       ContentLength: size,
       Key: unique,
+      ACL: "public-read",
+      CacheControl: "public, max-age=31536000",
     });
 
     const presignedUrl = await getSignedUrl(S3, command, {

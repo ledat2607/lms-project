@@ -1,47 +1,43 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+import { NextResponse } from "next/server";
+import { EmailTemplate } from "@/components/email-template";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
-  const { name, email, message } = await req.json();
-
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMPT_HOST,
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.SMTP_MAIL,
-      pass: process.env.SMTP_PASSWORD,
-    },
-  });
-
   try {
-    await transporter.sendMail({
-      from: `"LMS Support Team" <${process.env.SMTP_MAIL}>`, // Ẩn email cá nhân
-      to: email, // gửi đến email khách hàng nhập
-      subject: `Cảm ơn bạn đã liên hệ với LMS`,
-      html: `
-        <div style="font-family: Arial, sans-serif; color: #333;">
-          <div style="background-color: #0ea5e9; color: #fff; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
-            <h1>LMS Support Team</h1>
-          </div>
-          <div style="padding: 20px;">
-            <p>Xin chào <strong>${name}</strong>,</p>
-            <p>Cảm ơn bạn đã liên hệ với chúng tôi. Chúng tôi đã nhận được tin nhắn của bạn:</p>
-            <blockquote style="background: #f1f1f1; padding: 10px; border-left: 4px solid #0ea5e9;">
-              ${message}
-            </blockquote>
-            <p>Chúng tôi sẽ phản hồi bạn trong thời gian sớm nhất.</p>
-            <p>Trân trọng,<br/>LMS Support Team</p>
-          </div>
-          <div style="background-color: #f1f1f1; padding: 10px; text-align: center; font-size: 12px; color: #666; border-radius: 0 0 8px 8px;">
-            © 2025 LMS. All rights reserved.
-          </div>
-        </div>
-      `,
+    const { name, email, message } = await req.json();
+
+    if (!name || !email || !message) {
+      return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    }
+
+    // 1️⃣ Gửi email cảm ơn cho khách hàng
+    await resend.emails.send({
+      from: "LMS Support <support@lmsdomain.com>", // phải đúng domain đã verify
+      to: [email],
+      subject: "📩 Cảm ơn bạn đã liên hệ với LMS",
+      react: EmailTemplate({
+        title: "Cảm ơn bạn đã liên hệ!",
+        content: `Xin chào ${name}, chúng tôi đã nhận được tin nhắn của bạn và sẽ phản hồi trong thời gian sớm nhất.`,
+      }),
     });
 
-    return new Response(JSON.stringify({ success: true }), { status: 200 });
+    // 2️⃣ Gửi thông báo cho admin
+    await resend.emails.send({
+      from: "LMS Support <support@lmsdomain.com>",
+      to: ["admin@lmsdomain.com"], // email admin bạn muốn nhận báo cáo
+      subject: "📌 Có khách hàng mới liên hệ",
+      react: EmailTemplate({
+        title: "Khách hàng mới gửi tin nhắn",
+        content: `Tên: ${name} <br/> Email: ${email} <br/> Tin nhắn: ${message}`,
+      }),
+    });
+
+    return NextResponse.json({ success: true }, { status: 200 });
+
   } catch (error) {
-    console.error(error);
-    return new Response(JSON.stringify({ error: "Failed to send email" }), { status: 500 });
+    console.error("Email Error:", error);
+    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
   }
 }
