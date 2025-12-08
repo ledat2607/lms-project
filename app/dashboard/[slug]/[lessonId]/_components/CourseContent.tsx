@@ -9,6 +9,7 @@ import { useTransition } from "react";
 import { markCompleteLesson } from "../action";
 import { toast } from "sonner";
 import { useConfetti } from "@/hooks/use-confetti";
+import Image from "next/image";
 
 interface iAppProps {
   data: LessonContentType;
@@ -33,6 +34,7 @@ export function CourseContentId({ data }: iAppProps) {
         <div className="aspect-video bg-muted rounded-lg flex items-center flex-col justify-center">
           <BookIcon className="size-16 text-muted-foreground mx-auto mb-4" />
           <p>Bài học không có video hướng dẫn</p>
+          <Image src={thumbnailLink} alt="Thumbnail" width={640} height={360} />
         </div>
       );
     }
