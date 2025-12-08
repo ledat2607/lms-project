@@ -40,7 +40,7 @@ export function LessonItem({ lesson, slug, isActive, completed }: iAppProps) {
           )}
         </div>
         <div className="flex-1 text-left min-w-0">
-          <p className="text-xs font-medium">
+          <p className="text-xs font-medium overflow-hidden text-ellipsis whitespace-nowrap">
             {lesson.position}: {lesson.title}
           </p>
           {completed && (

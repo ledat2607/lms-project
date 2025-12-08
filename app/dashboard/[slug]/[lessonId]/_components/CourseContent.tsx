@@ -31,10 +31,13 @@ export function CourseContentId({ data }: iAppProps) {
 
     if (!videoUrl) {
       return (
-        <div className="aspect-video bg-muted rounded-lg flex items-center flex-col justify-center">
-          <BookIcon className="size-16 text-muted-foreground mx-auto mb-4" />
-          <p>Bài học không có video hướng dẫn</p>
-          <Image src={thumbnailLink} alt="Thumbnail" fill />
+        <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
+          <Image
+            src={thumbnailLink}
+            alt="Thumbnail"
+            fill
+            className="object-cover"
+          />
         </div>
       );
     }
@@ -97,8 +100,7 @@ export function CourseContentId({ data }: iAppProps) {
         )}
       </div>
       <div>
-        <h1>{data.title}</h1>
-
+        <p className="overflow-hidden text-balance">{data.title}</p>
         {data.description && (
           <RenderDescription json={JSON.parse(data.description)} />
         )}

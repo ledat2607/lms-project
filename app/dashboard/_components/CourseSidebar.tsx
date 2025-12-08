@@ -64,7 +64,7 @@ export function CouseSidebar({ course }: iAppProps) {
                   <ChevronDown className="size-4 text-primary" />
                 </div>
                 <div className="flex items-center w-full justify-between">
-                  <p className="font-semibold text-left">
+                  <p className="font-bold text-left">
                     {chapter.position}: {chapter.title}
                   </p>
                   <p className="text-[12px] text-muted-foreground truncate font-medium">
