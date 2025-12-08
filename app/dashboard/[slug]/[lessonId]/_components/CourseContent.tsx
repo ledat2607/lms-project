@@ -34,7 +34,7 @@ export function CourseContentId({ data }: iAppProps) {
         <div className="aspect-video bg-muted rounded-lg flex items-center flex-col justify-center">
           <BookIcon className="size-16 text-muted-foreground mx-auto mb-4" />
           <p>Bài học không có video hướng dẫn</p>
-          <Image src={thumbnailLink} alt="Thumbnail" width={640} height={360} />
+          <Image src={thumbnailLink} alt="Thumbnail" fill />
         </div>
       );
     }
