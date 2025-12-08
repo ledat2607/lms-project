@@ -4,7 +4,7 @@ import { RenderDescription } from "@/components/rich-text-editor/RenderDes";
 import { Button } from "@/components/ui/button";
 import { tryCatch } from "@/hooks/try-catch";
 import { ConstrucUrl } from "@/hooks/use-construct";
-import { BookIcon, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { useTransition } from "react";
 import { markCompleteLesson } from "../action";
 import { toast } from "sonner";
